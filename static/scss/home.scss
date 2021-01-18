@@ -1,6 +1,7 @@
 body,html{
     height: 100%;
     box-sizing: border-box;
+    background-color: #f6f6f6
 }
 
 .heading{
@@ -63,6 +64,20 @@ body,html{
             h2{
                 font-size: 2rem;
             }
+            ul{
+                font-size: 20px;
+                text-align: left;
+                list-style-type: circle;
+                line-height: 2rem;
+                li{
+                    border-bottom: 1px solid white;
+                    padding: 10px;
+                    &:hover{
+                        cursor: pointer;
+                        transform: scale(1.1);
+                    }
+                }
+            }
         }
     }
     .right{
@@ -76,6 +91,13 @@ body,html{
             }
         }
     }
+}
+
+footer{
+    background-color: black;
+    color: white;
+    padding: 10px;
+    text-align: center;
 }
 
  @media screen and (min-width: 600px){
@@ -102,8 +124,10 @@ body,html{
                  h2{
                      font-size: 3rem;
                  }
-                 p{
+                 ul{
                      font-size: 1.5rem;
+                     font-weight: normal;
+                     line-height: 3.5rem;
                  }
              }
          }

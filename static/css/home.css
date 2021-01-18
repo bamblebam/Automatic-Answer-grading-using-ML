@@ -2,6 +2,7 @@ body, html {
   height: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  background-color: #f6f6f6;
 }
 
 .heading {
@@ -100,6 +101,24 @@ body, html {
   font-size: 2rem;
 }
 
+.features .left .content ul {
+  font-size: 20px;
+  text-align: left;
+  list-style-type: circle;
+  line-height: 2rem;
+}
+
+.features .left .content ul li {
+  border-bottom: 1px solid white;
+  padding: 10px;
+}
+
+.features .left .content ul li:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
 .features .right .image-container {
   width: 85%;
   height: 100%;
@@ -109,6 +128,13 @@ body, html {
 .features .right .image-container .about-img {
   width: 100%;
   height: 100%;
+}
+
+footer {
+  background-color: black;
+  color: white;
+  padding: 10px;
+  text-align: center;
 }
 
 @media screen and (min-width: 600px) {
@@ -124,8 +150,10 @@ body, html {
   .features .left .content h2 {
     font-size: 3rem;
   }
-  .features .left .content p {
+  .features .left .content ul {
     font-size: 1.5rem;
+    font-weight: normal;
+    line-height: 3.5rem;
   }
 }
 
