@@ -41,9 +41,35 @@ body, html {
   height: 100%;
 }
 
+.about .right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.about .right .content {
+  margin: 10px;
+}
+
+.about .right .content h2 {
+  font-size: 2rem;
+}
+
 @media screen and (min-width: 600px) {
   .title h1 {
     font-size: 5em;
+  }
+  .about .right .content h2 {
+    font-size: 3rem;
+  }
+  .about .right .content p {
+    font-size: 1.5rem;
   }
 }
 
