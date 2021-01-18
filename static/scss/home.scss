@@ -1,0 +1,22 @@
+body,html{
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.heading{
+    height:100%;
+    width: 100%;
+    background-image: url("../images/scott-graham-5fNmWej4tAA-unsplash.jpg");
+    background-size: cover;
+    color: white;
+}
+
+
+ @media screen and (min-width: 600px){
+     .title{
+         h1{
+             font-size: 5em;
+         }
+     }
+ }
+
