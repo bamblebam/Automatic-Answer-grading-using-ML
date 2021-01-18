@@ -44,6 +44,40 @@ body,html{
     }
 }
 
+.features{
+    height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -150px;
+    .left,.right{
+        width:100%;
+        height: 100%;
+    }
+    .left{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .content{
+            margin: 10px;
+            h2{
+                font-size: 2rem;
+            }
+        }
+    }
+    .right{
+        .image-container{
+            width: 85%;
+            height: 100%;
+            margin: auto;
+            .about-img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+
  @media screen and (min-width: 600px){
      .title{
          h1{
@@ -62,6 +96,18 @@ body,html{
              }
          }
      }
+     .features{
+         .left{
+             .content{
+                 h2{
+                     font-size: 3rem;
+                 }
+                 p{
+                     font-size: 1.5rem;
+                 }
+             }
+         }
+     }
  }
 
  @media screen and (max-width: 600px){
@@ -70,5 +116,9 @@ body,html{
         .right{
             // height: auto;
         }
+    }
+    .features{
+        flex-direction: column;
+        margin-top: 0;
     }
 }
