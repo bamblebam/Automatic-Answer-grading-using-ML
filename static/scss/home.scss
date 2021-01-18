@@ -1,7 +1,8 @@
 body,html{
     height: 100%;
     box-sizing: border-box;
-    background-color: #f6f6f6
+    background-color: #f6f6f6;
+    font-family: 'Lato', sans-serif;
 }
 
 .heading{
@@ -37,9 +38,12 @@ body,html{
         justify-content: center;
         align-items: center;
         .content{
-            margin: 10px;
+            margin: 20px;
             h2{
                 font-size: 2rem;
+            }
+            p{
+                font-size: 20px;
             }
         }
     }
@@ -74,7 +78,7 @@ body,html{
                     padding: 10px;
                     &:hover{
                         cursor: pointer;
-                        transform: scale(1.1);
+                        transform: scale(1.15);
                     }
                 }
             }
@@ -143,6 +147,18 @@ footer{
     }
     .features{
         flex-direction: column;
-        margin-top: 0;
+        margin-top: 30px;
+        .left{
+            .content{
+                ul{
+                    li{
+                        &:hover{
+                            cursor: pointer;
+                            transform: scale(1);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

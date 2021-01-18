@@ -3,6 +3,7 @@ body, html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   background-color: #f6f6f6;
+  font-family: 'Lato', sans-serif;
 }
 
 .heading {
@@ -55,11 +56,15 @@ body, html {
 }
 
 .about .right .content {
-  margin: 10px;
+  margin: 20px;
 }
 
 .about .right .content h2 {
   font-size: 2rem;
+}
+
+.about .right .content p {
+  font-size: 20px;
 }
 
 .features {
@@ -115,8 +120,8 @@ body, html {
 
 .features .left .content ul li:hover {
   cursor: pointer;
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
+  -webkit-transform: scale(1.15);
+          transform: scale(1.15);
 }
 
 .features .right .image-container {
@@ -169,7 +174,12 @@ footer {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    margin-top: 0;
+    margin-top: 30px;
+  }
+  .features .left .content ul li:hover {
+    cursor: pointer;
+    -webkit-transform: scale(1);
+            transform: scale(1);
   }
 }
 /*# sourceMappingURL=home.css.map */
