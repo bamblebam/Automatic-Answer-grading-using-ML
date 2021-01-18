@@ -12,9 +12,47 @@ body, html {
   color: white;
 }
 
+.about {
+  height: 75vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.about .left, .about .right {
+  width: 100%;
+  height: 100%;
+}
+
+.about .left .image-container {
+  width: 85%;
+  height: 100%;
+  margin: auto;
+}
+
+.about .left .image-container .about-img {
+  width: 100%;
+  height: 100%;
+}
+
 @media screen and (min-width: 600px) {
   .title h1 {
     font-size: 5em;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .about {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
   }
 }
 /*# sourceMappingURL=home.css.map */
