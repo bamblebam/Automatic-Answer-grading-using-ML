@@ -1,4 +1,4 @@
-body{
+body {
   background-color: #f6f6f6;
 }
 .form-mw {
@@ -10,15 +10,15 @@ body{
   background-color: #3b5998;
   color: white;
 }
-.fb:hover{
-  background-color:#3b5998 ;
+.fb:hover {
+  background-color: #3b5998;
 }
 
 .google {
   background-color: #dd4b39;
   color: white;
 }
-.google:hover{
+.google:hover {
   background-color: #dd4b39;
 }
 
@@ -41,4 +41,8 @@ a {
 
 .submit-buttons:hover {
   background-color: #04adbf;
+}
+
+.container_password {
+  margin-top: 150px;
 }
