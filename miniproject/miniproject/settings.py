@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    # social providers
+    'allauth.socialaccount.providers.google',
     # custom apps
     'user_auth',
     'quiz',
