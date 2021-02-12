@@ -134,7 +134,7 @@ STATICFILES_DIRS = [
 ]
 
 # login redirects
-LOGIN_REDIRECT_URL = 'user-home'
+LOGIN_REDIRECT_URL = 'home'
 
 # email credentials
 EMAIL_USE_TLS = True
