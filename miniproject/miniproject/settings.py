@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # custom apps
+    'user_auth',
+    'quiz',
     # allauth apps
     'django.contrib.sites',
     'allauth',
@@ -45,9 +48,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     # social providers
     'allauth.socialaccount.providers.google',
-    # custom apps
-    'user_auth',
-    'quiz',
 ]
 
 MIDDLEWARE = [
