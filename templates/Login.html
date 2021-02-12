@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="authentication.css">
+    <!--Bootstrap CDN-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--Fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+
+    <!--Fontawesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="../static/css/authentication.css" type="text/css">
+
+</head>
+
+<body>
+
+    <!-- Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Sign IN /Login Authentication-->
+    <div class="container d-flex justify-content-center">
+        <form action="" method="post" class="form-mw">
+            <div class="text-center my-4">
+                <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
+            </div>
+            <div class="form-mw mx-auto w-100">
+                <div class="form-group my-3">
+                    <input type="text" id="inputEmail" class="form-control" placeholder="Username or Email" required
+                        autofocus name="login">
+                </div>
+                <div class="form-group my-3">
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required
+                        autofocus name="password">
+                </div>
+                <div class="form-group my-3 d-flex justify-content-center">
+                    <label>
+                        <input type="checkbox" value="remember-me" name="remember"> Remember me
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-secondary w-100 p-2">Sign In</button>
+                <p class="text-center my-2">OR</p>
+                <a href="#" class="btn btn-primary w-100 fb my-1 p-2">Login with facebook <i
+                        class="fab fa-facebook"></i></a>
+                <a href="#" class="btn btn-danger w-100 google my-2 p-2">Login with Google <i
+                        class="fab fa-google-plus-g"></i></a>
+                <p class="text-center my-2">Forgot your password?</p>
+                <a href="#" class="text-center">
+                    <p>Reset Password</p>
+                </a>
+                <p class="text-center my-2">Don't have an account?</p>
+                <a href="#" class="text-center">
+                    <p>Sign Up</p>
+                </a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+body {
+  background-color: #f6f6f6;
+}
+.form-mw {
+  max-width: 400px;
+  width: 100%;
+}
+
+.fb {
+  background-color: #3b5998;
+  color: white;
+}
+.fb:hover {
+  background-color: #3b5998;
+}
+
+.google {
+  background-color: #dd4b39;
+  color: white;
+}
+.google:hover {
+  background-color: #dd4b39;
+}
+
+a {
+  text-decoration: none;
+}
+
+.submit-buttons {
+  border-radius: 0;
+  font-size: 14px;
+  border: 1px solid #fff;
+  font-weight: bold;
+  color: #ffffff !important;
+  padding: 13px 40px;
+  text-transform: capitalize;
+  background-color: #01bacf;
+  margin: 0 5px;
+  transition: all ease 0.5s;
+}
+
+.submit-buttons:hover {
+  background-color: #04adbf;
+}
+
+.container_password {
+  margin-top: 150px;
+}
+
+.container_password4 {
+  margin-top: 100px;
+}
