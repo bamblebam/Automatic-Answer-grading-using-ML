@@ -7,5 +7,13 @@ def Home(request):
     return render(request, "custom/home.html")
 
 
-def navbar(request):
-    return render(request, "custom/navbar.html")
+def signup(request):
+    return render(request, "account/signup.html")
+
+
+def login(request):
+    return render(request, "account/login.html")
+
+
+def logout(request):
+    return render(request, "account/logout.html")
