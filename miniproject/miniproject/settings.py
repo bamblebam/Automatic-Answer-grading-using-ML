@@ -139,6 +139,7 @@ STATICFILES_DIRS = [
 LOGIN_REDIRECT_URL = 'home'
 
 # email credentials
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -148,6 +149,7 @@ EMAIL_HOST_PASSWORD = 'bamblebam'
 # allauth configuration
 SITE_ID = 1
 ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_EMAIL_VERIFICATION = None
 # ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 # SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'

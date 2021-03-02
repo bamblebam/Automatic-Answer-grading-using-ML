@@ -32,17 +32,18 @@
     <!-- Sign IN /Login Authentication-->
     <div class="container d-flex justify-content-center">
         <form action="" method="post" class="form-mw">
+            {% csrf_token %}
             <div class="text-center my-4">
                 <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
             </div>
             <div class="form-mw mx-auto w-100">
                 <div class="form-group my-3">
                     <input type="text" id="inputEmail" class="form-control" placeholder="Username or Email" required
-                        autofocus name="login">
+                        name="login">
                 </div>
                 <div class="form-group my-3">
                     <input type="password" id="inputPassword" class="form-control" placeholder="Password" required
-                        autofocus name="password">
+                        name="password">
                 </div>
                 <div class="form-group my-3 d-flex justify-content-center">
                     <label>

@@ -36,22 +36,21 @@
       <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
     </div>
     <form action="" method="post">
+      {% csrf_token %}
       <div class="form-mw mx-auto w-100">
         <div class="form-group my-3">
-          <input type="text" id="inputText" class="form-control" placeholder="Username" required="" autofocus=""
-            name="username">
+          <input type="text" id="inputText" class="form-control" placeholder="Username" required name="username">
         </div>
         <div class="form-group my-3">
-          <input type="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus=""
-            name="email">
+          <input type="email" id="inputEmail" class="form-control" placeholder="Email" required name="email">
         </div>
         <div class="form-group my-3">
-          <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="" autofocus=""
+          <input type="password" id="inputPassword" class="form-control" placeholder="Password" required
             name="password1">
         </div>
         <div class="form-group my-3">
-          <input type="password" id="inputPassword1" class="form-control" placeholder="Confirm Password" required=""
-            autofocus="" name="password2">
+          <input type="password" id="inputPassword1" class="form-control" placeholder="Confirm Password" required
+            name="password2">
         </div>
         <button type="submit" class="btn btn-secondary w-100 p-2">Register</button>
         <p class="text-center my-2">OR</p>
