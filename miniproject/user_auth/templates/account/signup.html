@@ -37,6 +37,7 @@
       <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
     </div>
     <form action="" method="post">
+      {% csrf_token %}
       <div class="form-mw mx-auto w-100">
         <div class="form-group my-3">
           <input type="text" id="inputText" class="form-control" placeholder="Username" required="" autofocus=""

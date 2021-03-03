@@ -36,6 +36,7 @@
     <!-- Sign IN /Login Authentication-->
     <div class="container d-flex justify-content-center">
         <form action="" method="post" class="form-mw">
+            {% csrf_token %}
             <div class="text-center my-4">
                 <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
             </div>
