@@ -1,21 +1,43 @@
-{% extends "account/base.html" %}
+{% load static %}
+{% load account socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% load i18n %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logout</title>
+  <!--Bootstrap CDN-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+  <!--Fonts-->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 
-{% block content %}
-<h1>{% trans "Sign Out" %}</h1>
+  <!--Fontawesome-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="{% static 'css/authentication.css' %}" type="text/css">
 
-<p>{% trans 'Are you sure you want to sign out?' %}</p>
+</head>
 
-<form method="post" action="{% url 'account_logout' %}">
-  {% csrf_token %}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
-  {% endif %}
-  <button type="submit">{% trans 'Sign Out' %}</button>
-</form>
+<body>
 
+  <!-- Navbar-->
+  {% include 'custom/navbar.html' %}
 
-{% endblock %}
+  <!-- Sign IN /Login Authentication-->
+  <div class="container d-flex justify-content-center" style="margin-top: 200px;">
+    <form action="" method="post" class="form-mw">
+      {% csrf_token %}
+      <h2 class="text-center mb-2">Logout</h2>
+      <button type="submit" class="btn btn-secondary w-100 p-2">Sign Out</button>
+  </div>
+  </form>
+  </div>
+</body>
+
+</html>

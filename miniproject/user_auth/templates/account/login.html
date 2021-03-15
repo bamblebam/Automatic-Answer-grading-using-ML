@@ -7,8 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-
+    <title>Login</title>
     <!--Bootstrap CDN-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -22,16 +21,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
         crossorigin="anonymous" />
-        <link rel="stylesheet" href="{% static 'css/authentication.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/authentication.css' %}" type="text/css">
 
 </head>
 
 <body>
 
-    
-    <!-- Navbar-->
- {% include 'custom/navbar.html' %}
 
+    <!-- Navbar-->
+    {% include 'custom/navbar.html' %}
 
     <!-- Sign IN /Login Authentication-->
     <div class="container d-flex justify-content-center">
@@ -43,11 +41,11 @@
             <div class="form-mw mx-auto w-100">
                 <div class="form-group my-3">
                     <input type="text" id="inputEmail" class="form-control" placeholder="Username or Email" required
-                        autofocus name="login">
+                        name="login">
                 </div>
                 <div class="form-group my-3">
                     <input type="password" id="inputPassword" class="form-control" placeholder="Password" required
-                        autofocus name="password">
+                        name="password">
                 </div>
                 <div class="form-group my-3 d-flex justify-content-center">
                     <label>
@@ -58,7 +56,7 @@
                 <p class="text-center my-2">OR</p>
                 <a href="#" class="btn btn-primary w-100 fb my-1 p-2">Login with facebook <i
                         class="fab fa-facebook"></i></a>
-                <a href="{% provider_login_url 'google' %}"  class="btn btn-danger w-100 google my-2 p-2">Login with Google <i
+                <a href="{% provider_login_url 'google' %}" class="btn w-100 google my-2 p-2">Login with Google <i
                         class="fab fa-google-plus-g"></i></a>
                 <p class="text-center my-2">Forgot your password?</p>
                 <a href="{% url 'account_reset_password' %}" class="text-center">
