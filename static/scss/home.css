@@ -2,7 +2,7 @@ body,
 html {
   height: 100%;
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
   background-color: #f6f6f6;
   font-family: "Lato", sans-serif;
 }
@@ -11,14 +11,8 @@ html {
   height: 100%;
   width: 100%;
   background-image: url("../images/scott-graham-5fNmWej4tAA-unsplash.jpg");
-  /* Add the blur effect */
-  filter: blur(4px);
-  -webkit-filter: blur(1px);
-
-  /* Full height */
-  height: 100%;
   background-size: cover;
-  color: white;
+  color: black;
 }
 
 .about {
@@ -27,11 +21,11 @@ html {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .about .left,
@@ -56,11 +50,11 @@ html {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .about .right .content {
@@ -81,11 +75,11 @@ html {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-top: -150px;
 }
 
@@ -100,11 +94,11 @@ html {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .features .left .content {
@@ -130,7 +124,7 @@ html {
 .features .left .content ul li:hover {
   cursor: pointer;
   -webkit-transform: scale(1.15);
-  transform: scale(1.15);
+          transform: scale(1.15);
 }
 
 .features .right .image-container {
@@ -155,19 +149,6 @@ footer {
 @media screen and (min-width: 600px) {
   .title h1 {
     font-size: 5em;
-
-    background-color: rgba(0, 0, 0, 0.6); /* Black w/opacity/see-through */
-    color: white;
-    font-weight: bold;
-    border: 3px solid #f1f1f1;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    width: 80%;
-    padding: 20px;
-    text-align: center;
   }
   .about .right .content h2 {
     font-size: 3rem;
@@ -189,20 +170,20 @@ footer {
   .about {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
   }
   .features {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
     margin-top: 30px;
   }
   .features .left .content ul li:hover {
     cursor: pointer;
     -webkit-transform: scale(1);
-    transform: scale(1);
+            transform: scale(1);
   }
 }
 /*# sourceMappingURL=home.css.map */
