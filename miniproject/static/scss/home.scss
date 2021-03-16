@@ -9,7 +9,6 @@ html {
 .heading {
   height: 100%;
   width: 100%;
-  background-size: cover;
   color: black;
   position: relative;
   overflow: hidden;
@@ -26,6 +25,10 @@ html {
     }
   }
 
+  .title{
+    font-weight: bolder;
+  }
+  
   &::before{
     content: "";
     position: absolute;
@@ -35,7 +38,7 @@ html {
     bottom: 0%;
     border-radius: 50%;
     background: rgb(108,99,255);
-    background: linear-gradient(45deg, rgba(108,99,255,1) 0%, rgba(37,29,172,1) 100%);
+    background: linear-gradient(45deg, #17aefd 0%, #1466e3 100%);
   }
 
   // &::after{
@@ -196,7 +199,6 @@ footer {
       width: 800px;
       right: 10%;
       bottom: 60%;
-
     }
   }
   .about {
