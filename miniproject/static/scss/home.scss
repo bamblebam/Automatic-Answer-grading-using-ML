@@ -9,9 +9,33 @@ html {
 .heading {
   height: 100%;
   width: 100%;
-  background-image: url("../images/scott-graham-5fNmWej4tAA-unsplash.jpg");
   background-size: cover;
-  color: white;
+  color: black;
+  position: relative;
+  overflow: hidden;
+
+  .heading-card{
+    background-color: white;
+    height: 400px;
+    width: 800px;
+    border-radius: 25px;
+    margin: 10px;
+    z-index: 10;
+    &:hover{
+      transform: scale(1.1);
+    }
+  }
+
+  &::before{
+    content: "";
+    position: absolute;
+    height: 2000px;
+    width: 2000px;
+    left: -10%;
+    top: -10%;
+    border-radius: 50%;
+    background-color: blue;
+  }
 }
 
 .about {
