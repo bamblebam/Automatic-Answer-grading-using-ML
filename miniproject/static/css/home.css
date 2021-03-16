@@ -35,10 +35,11 @@ html {
   position: absolute;
   height: 2000px;
   width: 2000px;
-  left: -10%;
-  top: -10%;
+  right: 50%;
+  bottom: 0%;
   border-radius: 50%;
-  background-color: blue;
+  background: #6c63ff;
+  background: linear-gradient(45deg, #6c63ff 0%, #251dac 100%);
 }
 
 .about {
@@ -172,6 +173,15 @@ footer {
   margin-top: 10px;
 }
 
+@media screen and (max-width: 1200px) {
+  .heading::before {
+    height: 1200px;
+    width: 1200px;
+    right: 30%;
+    bottom: 10%;
+  }
+}
+
 @media screen and (min-width: 600px) {
   .title h1 {
     font-size: 5em;
@@ -193,6 +203,12 @@ footer {
 }
 
 @media screen and (max-width: 600px) {
+  .heading::before {
+    height: 800px;
+    width: 800px;
+    right: 10%;
+    bottom: 60%;
+  }
   .about {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;

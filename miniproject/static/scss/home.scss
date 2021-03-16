@@ -31,11 +31,23 @@ html {
     position: absolute;
     height: 2000px;
     width: 2000px;
-    left: -10%;
-    top: -10%;
+    right: 50%;
+    bottom: 0%;
     border-radius: 50%;
-    background-color: blue;
+    background: rgb(108,99,255);
+    background: linear-gradient(45deg, rgba(108,99,255,1) 0%, rgba(37,29,172,1) 100%);
   }
+
+  // &::after{
+  //   content: "";
+  //   position: absolute;
+  //   height: 2000px;
+  //   width: 2000px;
+  //   border-radius: 50%;
+  //   top: 10%;
+  //   left: 30%;
+  //   background-color: green;
+  // }
 }
 
 .about {
@@ -132,6 +144,17 @@ footer {
   margin-top: 10px;
 }
 
+@media screen and (max-width: 1200px){
+  .heading{
+    &::before{
+      height: 1200px;
+      width: 1200px;
+      right: 30%;
+      bottom: 10%;
+    }
+  }
+}
+
 @media screen and (min-width: 600px) {
   .title {
     h1 {
@@ -167,6 +190,15 @@ footer {
 }
 
 @media screen and (max-width: 600px) {
+  .heading{
+    &::before{
+      height: 800px;
+      width: 800px;
+      right: 10%;
+      bottom: 60%;
+
+    }
+  }
   .about {
     flex-direction: column;
     .right {
