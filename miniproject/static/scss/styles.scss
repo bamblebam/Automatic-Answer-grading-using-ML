@@ -1,0 +1,17 @@
+body,
+html {
+  height: 100%;
+  box-sizing: border-box;
+  background-color: #77e4ff;
+  font-family: "Lato", sans-serif;
+}
+
+.main-card{
+    max-width: 800px;
+    min-height: 400px;
+    max-height: 1200px;
+    border-radius: 10px;
+    background-color: white;
+    margin: 180px auto;
+    box-shadow: 5px 10px #888888;
+}
