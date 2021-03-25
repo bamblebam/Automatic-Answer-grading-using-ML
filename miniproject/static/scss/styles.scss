@@ -9,7 +9,8 @@ html {
 
 .main-card{
     max-width: 800px;
-    border-radius: 10px;
+    border-radius: 20px;
+    min-height: 400px;
     background-color: white;
     margin: 120px auto;
     box-shadow: 5px 10px #888888;
@@ -24,6 +25,18 @@ html {
 .login-form{
     height: 100%;
     max-width: 400px;
+
+    .input-field{
+      display: flex;
+      flex-direction: column-reverse;
+      input:valid+label{
+        color: #6c757d;
+      }
+      
+      label{
+        color: white;
+      }
+    }
 }
 
 .social-container{
@@ -49,7 +62,7 @@ html {
   img{
     height: 100%;
     width: 100%;
-    border-radius: 0 10px 10px 0;
+    border-radius: 0 20px 20px 0;
   }
 }
 

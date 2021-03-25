@@ -10,7 +10,8 @@ html {
 
 .main-card {
   max-width: 800px;
-  border-radius: 10px;
+  border-radius: 20px;
+  min-height: 400px;
   background-color: white;
   margin: 120px auto;
   -webkit-box-shadow: 5px 10px #888888;
@@ -28,6 +29,24 @@ html {
 .login-form {
   height: 100%;
   max-width: 400px;
+}
+
+.login-form .input-field {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
+}
+
+.login-form .input-field input:valid + label {
+  color: #6c757d;
+}
+
+.login-form .input-field label {
+  color: white;
 }
 
 .social-container {
@@ -58,7 +77,7 @@ html {
 .wallpaper img {
   height: 100%;
   width: 100%;
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 20px 20px 0;
 }
 
 @media (max-width: 800px) {
