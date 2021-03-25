@@ -15,15 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from quiz import views as quiz_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
     path("", include("user_auth.urls")),
-    path("new-question", quiz_views.newQuestionPage, name='new-question'),
-    path("index/", quiz_views.homePage, name='index'),
-    path('question/<int:id>', quiz_views.questionPage, name='question'),
+    path("quiz/", include("quiz.urls")),
+
+
 
 ]
 
