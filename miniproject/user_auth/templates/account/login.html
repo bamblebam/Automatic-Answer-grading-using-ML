@@ -1,12 +1,46 @@
 {% extends 'layouts/page.html' %}
+{% load widget_tweaks %}
+{% load account socialaccount %}
 
 {% block content %}
+
 <div class="login">
     <form action="" class="login-form">
-        <div class="input-field">
+        <div class="title text-center">
+            <h1>Sign In</h1>
+            <hr>
+        </div>
+        <div class="form-group my-1">
             <label for=""></label>
-            {{form.login}}
+            {{form.login|add_class:"form-control"}}
+        </div>
+        <div class="form-group my-1">
+            <label for=""></label>
+            {{form.password|add_class:"form-control"}}
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-secondary w-100 p-2">Sign In</button>
+        </div>
+        <p class="text-center my-2">Or signin with</p>
+        <div class="d-flex justify-content-center social-container">
+            <a href="#" class="social-button fb"><i class="fab fa-facebook"></i></a>
+            <a href="{% provider_login_url 'google' %}" class="social-button google"><i
+                    class="fab fa-google-plus-g"></i></a>
+        </div>
+        <div class="text-center">
+            <p class="text-center my-2">Don't have an account?</p>
+            <a href="{% url 'account_signup' %}" class="text-center">Sign Up</a>
+        </div>
+        <div class="text-center">
+            <p class="text-center my-2">Forgot your password?</p>
+            <a href="{% url 'account_reset_password' %}" class="text-center">
+                <p>Reset Password</p>
+            </a>
         </div>
     </form>
 </div>
+<div class="wallpaper">
+    <img src="../../../static/images/card_wp.jpg" alt="">
+</div>
+
 {% endblock %}

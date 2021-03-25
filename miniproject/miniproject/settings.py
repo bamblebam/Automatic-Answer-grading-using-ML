@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     # social providers
     'allauth.socialaccount.providers.google',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
