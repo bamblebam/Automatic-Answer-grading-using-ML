@@ -1,74 +1,51 @@
-{% load static %}
+{% extends 'layouts/page.html' %}
+{% load widget_tweaks %}
 {% load account socialaccount %}
-<!-- Backend done-->
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SignUp</title>
-  <!--Bootstrap CDN-->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% block content %}
 
-  <!--Fonts-->
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-
-  <!--Fontawesome-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-    crossorigin="anonymous" />
-  <link rel="stylesheet" href="{% static 'css/authentication.css' %}" type="text/css">
-
-</head>
-
-<body>
-
-  <!-- Navbar-->
-  {% include 'custom/navbar.html' %}
-
-  <!-- SignUp Page-->
-
-  <div class="container">
-    <div class="text-center my-4">
-      <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
-    </div>
-    <form action="" method="post">
-      {% csrf_token %}
-      <div class="form-mw mx-auto w-100">
-        <div class="form-group my-3">
-          <input type="text" id="inputText" class="form-control" placeholder="Username" required name="username">
+  <div class="login my-auto">
+    <form action="" class="login-form">
+        <div class="title text-center">
+            <h1>Sign Up</h1>
+            <hr>
         </div>
-        <div class="form-group my-3">
-          <input type="email" id="inputEmail" class="form-control" placeholder="Email" required name="email">
+        <div class="form-group my-1 input-field">
+            {{form.login|add_class:"form-control"}}
+            <label for="" class="small">Username</label>
         </div>
-        <div class="form-group my-3">
-          <input type="password" id="inputPassword" class="form-control" placeholder="Password" required
-            name="password1">
+        <div class="form-group my-1 input-field">
+          {{form.login|add_class:"form-control"}}
+          <label for="" class="small">Email</label>
         </div>
-        <div class="form-group my-3">
-          <input type="password" id="inputPassword1" class="form-control" placeholder="Confirm Password" required
-            name="password2">
+        <div class="form-group my-1 input-field">
+            {{form.password|add_class:"form-control"}}
+            <label for="" class="small">Password</label>
         </div>
-        <button type="submit" class="btn btn-secondary w-100 p-2">Register</button>
-        <p class="text-center my-2">OR</p>
-        <a href="#" class="btn w-100 fb my-2 p-2">Login with facebook <i class="fab fa-facebook"></i></a>
-        <a href="{% provider_login_url 'google' %}" class="btn w-100 google my-2 p-2">Login with Google <i
-            class="fab fa-google-plus-g"></i></a>
-        <p class="text-center my-2">Already have an account?</p>
-        <a href="{% url 'account_login' %}" class="text-center">
-          <p>Sign In</p>
-        </a>
-      </div>
+        <div class="form-group my-1 input-field">
+          {{form.password|add_class:"form-control"}}
+          <label for="" class="small">Confirm Password</label>
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-secondary w-100 p-2">Register</button>
+        </div>
+        <p class="text-center my-2">Or SignIn with</p>
+        <div class="d-flex justify-content-center social-container">
+            <a href="#" class="social-button fb"><i class="fab fa-facebook"></i></a>
+            <a href="{% provider_login_url 'google' %}" class="social-button google"><i
+                    class="fab fa-google-plus-g"></i></a>
+        </div>
+        <div class="text-center">
+            <p class="text-center my-2">Already have an account?</p>
+            <a href="{% url 'account_login' %}" class="text-center">Sign In</a>
+        </div>
+        
     </form>
   </div>
-</body>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
-</html>
+<div class="wallpaper">
+    <img src="../../../static/images/card_wp.jpg" alt="">
+</div>
+
+{% endblock %}
+  
