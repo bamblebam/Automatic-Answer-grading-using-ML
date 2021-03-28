@@ -45,6 +45,10 @@ html {
   color: #6c757d;
 }
 
+.login-form .input-field input:focus + label {
+  color: #6c757d;
+}
+
 .login-form .input-field label {
   color: white;
 }

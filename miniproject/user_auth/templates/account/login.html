@@ -5,7 +5,8 @@
 {% block content %}
 
 <div class="login my-auto">
-    <form action="" class="login-form">
+    <form action="" method="POST" class="login-form">
+        {% csrf_token %}
         <div class="title text-center">
             <h1>Sign In</h1>
             <hr>

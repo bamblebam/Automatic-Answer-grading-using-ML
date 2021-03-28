@@ -32,7 +32,9 @@ html {
       input:valid+label{
         color: #6c757d;
       }
-      
+      input:focus+label{
+        color: #6c757d;
+      }
       label{
         color: white;
       }
