@@ -1,0 +1,21 @@
+body,
+html {
+  height: 100%;
+  box-sizing: border-box;
+  background-color: #f6f6f6;
+  font-family: "Lato", sans-serif;
+}
+
+.input-field{
+    display: flex;
+    flex-direction: column-reverse;
+    input:valid+label{
+      color: #6c757d;
+    }
+    input:focus+label{
+      color: #6c757d;
+    }
+    label{
+        color: #f6f6f6;
+      }
+  }
