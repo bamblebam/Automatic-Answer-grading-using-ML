@@ -9,7 +9,21 @@ from .filters import QuestionFilter
 # Create your views here.
 
 
-@login_required()  # Teacher boolean
+class QuestionListView(FilterView):
+    model = Question
+    paginate_by = 10
+    template_name = "quiz/question_home.html"
+    filterset_class = QuestionFilter
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        request_copy = self.request.GET.copy()
+        params = request_copy.pop('page', True) and request_copy.urlencode()
+        context['params'] = params
+        return context
+
+
+@login_required  # Teacher boolean
 def newQuestionPage(request):
     form = NewQuestionForm()
 
@@ -29,20 +43,7 @@ def newQuestionPage(request):
     return render(request, 'quiz/new-question.html', context)
 
 
-class QuestionListView(FilterView):
-    model = Question
-    paginate_by = 10
-    template_name = "quiz/question_home.html"
-    filterset_class = QuestionFilter
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        request_copy = self.request.GET.copy()
-        params = request_copy.pop('page', True) and request_copy.urlencode()
-        context['params'] = params
-        return context
-
-
+@login_required
 def questionPage(request, slug):
     response_form = NewResponseForm()
 
