@@ -1,5 +1,8 @@
 {% extends 'layouts/normal_page.html' %}
 {% block content %}
+<div class="container mt-4">
+  <a href="{% url 'new-question' %}" class="btn btn-primary w-100 p-3">Create Question</a>
+</div>
 <div class="container">
   <form action="" class="row my-5">
     <div class="form-group input-field col-lg-4">
@@ -20,15 +23,16 @@
   </form>
 </div>
 <div class="container">
-  <div class="card my-2">
-    <div class="card-header">
-      Featured
-    </div>
+  {% for question in object_list %}
+  <div class="card my-4">
     <div class="card-body">
-      <h5 class="card-title">Special title treatment</h5>
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+      <h5 class="card-title"><a href="{% url 'question' question.slug %}">{{question.title}}</a></h5>
+      <div>
+        <p class="card-text text-right">By {{question.author}}</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
     </div>
   </div>
+  {% endfor %}
 </div>
 {% endblock %}

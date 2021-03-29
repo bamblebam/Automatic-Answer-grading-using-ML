@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # social providers
     'allauth.socialaccount.providers.google',
     'widget_tweaks',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Question, Response
 from .forms import NewQuestionForm, NewResponseForm
+from django_filters.views import FilterView
+from .filters import QuestionFilter
 
 # Create your views here.
 
@@ -24,15 +26,22 @@ def newQuestionPage(request):
             raise
 
     context = {'form': form}
-    return render(request, 'new-question.html', context)
+    return render(request, 'quiz/new-question.html', context)
 
 
-def homePage(request):
-    questions = Question.objects.all()
-    context = {
-        'questions': questions
-    }
-    return render(request, 'homepage.html', context)
+# def homePage(request):
+#     questions = Question.objects.all()
+#     context = {
+#         'questions': questions
+#     }
+#     return render(request, 'homepage.html', context)
+
+
+class QuestionListView(FilterView):
+    model = Question
+    paginate_by = 10
+    template_name = "quiz/question_home.html"
+    filterset_class = QuestionFilter
 
 
 def questionPage(request, slug):
@@ -57,4 +66,4 @@ def questionPage(request, slug):
         'response_form': response_form,
 
     }
-    return render(request, 'question.html', context)
+    return render(request, 'quiz/question.html', context)
