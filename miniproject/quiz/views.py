@@ -34,7 +34,7 @@ def newQuestionPage(request):
                 question = form.save(commit=False)
                 question.author = request.user
                 question.save()
-                return redirect("home")
+                return redirect("quiz-home")
         except Exception as e:
             print(e)
             raise
@@ -55,7 +55,7 @@ def questionPage(request, slug):
                 response.user = request.user
                 response.question = Question.objects.get(slug=slug)
                 response.save()
-                return redirect('home')
+                return redirect('quiz-home')
         except Exception as e:
             print(e)
             raise
