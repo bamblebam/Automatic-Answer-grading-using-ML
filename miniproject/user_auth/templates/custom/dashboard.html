@@ -1,6 +1,49 @@
 {% extends 'layouts/normal_page.html' %}
 {% block content %}
-<div class="container">
-
+<div class="container my-4">
+    {% if questions|length %}
+    <h2>Questions Created</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Question</th>
+                <th scope="col">Question Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for question in questions %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{question.title}}</td>
+                <td>{{question.question_code}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+<div class="container my-4">
+    {% if responses|length %}
+    <h2>Questions Answered</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Question</th>
+                <th scope="col">Question Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for response in responses %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{response.question.title}}</td>
+                <td>{{response.marks}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
 </div>
 {% endblock %}

@@ -12,8 +12,10 @@ def Home(request):
 @login_required
 def dashboard(request):
     user = request.user
-    questions_created = Question.objects.filter(author=user)
-    questions_responded = Response.objects.filter(user=user)
+    questions_created = Question.objects.filter(
+        author=user).order_by("-date_added")
+    questions_responded = Response.objects.filter(
+        user=user).order_by("-date_added")
     context = {
         'questions': questions_created,
         'responses': questions_responded

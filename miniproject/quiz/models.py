@@ -1,6 +1,7 @@
 from django.db import models
 from user_auth.models import User
 from django.template.defaultfilters import slugify
+from django.core.validators import MaxValueValidator, MinValueValidator
 from uuid import uuid4
 # Create your models here.
 
@@ -11,6 +12,7 @@ class Question(models.Model):
     model_answer = models.TextField(null=True)
     question_code = models.CharField(max_length=200, default=uuid4().hex[:6])
     slug = models.SlugField(max_length=255, null=True)
+    date_added = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -26,7 +28,10 @@ class Response(models.Model):
     question = models.ForeignKey(
         Question, on_delete=models.CASCADE, related_name='responses')
     body = models.TextField(null=False)
+    marks = models.IntegerField(default=0, validators=[
+                                MinValueValidator(0), MaxValueValidator(100)])
     slug = models.SlugField(max_length=255, null=True)
+    date_added = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
         return self.body
