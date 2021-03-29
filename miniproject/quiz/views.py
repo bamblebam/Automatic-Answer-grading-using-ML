@@ -5,6 +5,8 @@ from .models import Question, Response
 from .forms import NewQuestionForm, NewResponseForm
 from django_filters.views import FilterView
 from .filters import QuestionFilter
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
 
 # Create your views here.
 
@@ -51,10 +53,18 @@ def questionPage(request, slug):
         try:
             response_form = NewResponseForm(request.POST)
             if response_form.is_valid():
+                sbert_model = SentenceTransformer('bert-base-nli-mean-tokens')
+                response_answer = response_form.cleaned_data['body']
+                model_answer = Question.objects.get(slug=slug).model_answer
+                sentence_embeddings = sbert_model.encode(
+                    [model_answer, response_answer])
+                score = cosine_similarity(sentence_embeddings)[0][1]
                 response = response_form.save(commit=False)
+                response.marks = round(score*100)
                 response.user = request.user
                 response.question = Question.objects.get(slug=slug)
                 response.save()
+                print(score)
                 return redirect('quiz-home')
         except Exception as e:
             print(e)
@@ -64,6 +74,5 @@ def questionPage(request, slug):
     context = {
         'question': question,
         'response_form': response_form,
-
     }
     return render(request, 'quiz/question.html', context)
