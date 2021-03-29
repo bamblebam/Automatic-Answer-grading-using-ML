@@ -18,6 +18,7 @@ def newQuestionPage(request):
                 question = form.save(commit=False)
                 question.author = request.user
                 question.save()
+                return redirect("home")
         except Exception as e:
             print(e)
             raise
