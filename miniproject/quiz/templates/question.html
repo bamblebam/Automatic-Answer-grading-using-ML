@@ -1,24 +1,53 @@
-{% extends 'layouts/page.html' %}
+{% extends 'layouts/quiz_page.html' %}
+{% load widget_tweaks %}
 
 {% block content %}
-<div class="page question-page">
-
-  <h2 class="question-title">{{question.title}}</h2>
-  <!-- <p class="question-body">{{question.body}}</p> -->
-  <span class="question-author">author : {{question.author.username}}</span>
-
-
-
-  {% if user.is_authenticated %}
-  <form method="POST" action="" class="response-form">
+<div class="login my-auto">
+  <form action="" method="POST" class="login-form">
     {% csrf_token %}
-    <div class="fieldWrapper">
-      <label for="{{response_form.body.id_for_label}}">Your answer:</label>
-      {{response_form.body}}
+    <div class="title text-center">
+      <h1>Answer Question</h1>
+      <hr>
     </div>
-    <input type="submit" value="Submit" class="submit-button" />
+    <div class="ques-desc">
+      <div class="question">
+        <h3>Q</h3>
+        <h3>{{question.title}}</h3>
+      </div>
+      <h5 class="text-right">By {{question.author}}</h5>
+    </div>
+    <div class="form-group my-1 input-field">
+      {{response_form.body|add_class:"form-control"|attr:"placeholder:Answer"}}
+      <label for="" class="small">Answer</label>
+    </div>
+    <div class="mt-4">
+      <button type="button" class="btn btn-secondary w-100 p-2" data-toggle="modal" data-target="#exampleModal">
+        Answer Question
+      </button>
+    </div>
+    <!-- modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Answer Question</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Once the question has been answered it cannot be modified.
+            <br>
+            Are you sure you want to proceed?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger w-100" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success w-100">Answer Question</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </form>
-  {% endif %}
-
 </div>
 {% endblock %}

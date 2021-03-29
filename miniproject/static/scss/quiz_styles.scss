@@ -19,6 +19,12 @@ html {
 .login{
   padding: 25px;
 }
+
+.question{
+  display: grid;
+  grid-template-columns: 10% 90%
+}
+
 .login-form{
     height: 100%;
     max-width: 600px;

@@ -22,6 +22,13 @@ html {
   padding: 25px;
 }
 
+.question {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 10% 90%;
+      grid-template-columns: 10% 90%;
+}
+
 .login-form {
   height: 100%;
   max-width: 600px;

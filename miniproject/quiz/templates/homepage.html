@@ -6,7 +6,7 @@
 
   {% for question in questions %}
   <div class="question-list-item">
-    <a href="{% url 'question' question.id %}">
+    <a href="{% url 'question' question.slug %}">
       <p class="question-list-item-title">
         {{question.title}}
       </p>

@@ -35,7 +35,7 @@ def homePage(request):
     return render(request, 'homepage.html', context)
 
 
-def questionPage(request, id):
+def questionPage(request, slug):
     response_form = NewResponseForm()
 
     if request.method == 'POST':
@@ -44,15 +44,14 @@ def questionPage(request, id):
             if response_form.is_valid():
                 response = response_form.save(commit=False)
                 response.user = request.user
-                response.question = Question(id=id)
+                response.question = Question.objects.get(slug=slug)
                 response.save()
-
-                return redirect('/question/'+str(id)+'#'+str(response.id))
+                return redirect('home')
         except Exception as e:
             print(e)
             raise
 
-    question = Question.objects.get(id=id)
+    question = Question.objects.get(slug=slug)
     context = {
         'question': question,
         'response_form': response_form,
