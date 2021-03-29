@@ -1,24 +1,25 @@
-{% extends 'layouts/page.html' %}
+{% extends 'layouts/quiz_page.html' %}
+{% load widget_tweaks %}
 
 {% block content %}
-<div class="page new-question-page">
-  <h1 class="title">New question</h1>
-
-
-  <form method="POST" action="" class="new-question-form">
+<div class="login my-auto">
+  <form action="" method="POST" class="login-form">
     {% csrf_token %}
-    <div class="fieldWrapper">
-      <label for="{{form.title.id_for_label}}">Question:</label>
-      {{form.title}}
-      <span class="error">{{form.title.errors}}</span>
+    <div class="title text-center">
+      <h1>Sign In</h1>
+      <hr>
     </div>
-    <!-- <div class="fieldWrapper">
-      <label for="{{form.body.id_for_label}}">Body:</label>
-      {{form.body}}
-      <span class="error">{{form.body.errors}}</span>
-    </div> -->
-    <input type="submit" value="Submit" class="submit-button" />
+    <div class="form-group my-1 input-field">
+      {{form.login|add_class:"form-control"}}
+      <label for="" class="small">Username or email</label>
+    </div>
+    <div class="form-group my-1 input-field">
+      {{form.password|add_class:"form-control"}}
+      <label for="" class="small">Password</label>
+    </div>
+    <div class="mt-4">
+      <button type="submit" class="btn btn-secondary w-100 p-2">Sign In</button>
+    </div>
   </form>
-
 </div>
 {% endblock %}

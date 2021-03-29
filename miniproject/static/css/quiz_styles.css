@@ -1,0 +1,115 @@
+body,
+html {
+  height: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: #77e4ff;
+  font-family: "Lato", sans-serif;
+  overflow-x: hidden;
+}
+
+.main-card {
+  max-width: 800px;
+  border-radius: 20px;
+  min-height: 400px;
+  background-color: white;
+  margin: 120px auto;
+  -webkit-box-shadow: 5px 10px #888888;
+          box-shadow: 5px 10px #888888;
+}
+
+.login {
+  padding: 25px;
+}
+
+.login-form {
+  height: 100%;
+  max-width: 400px;
+  margin: auto;
+}
+
+.login-form .input-field {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
+}
+
+.login-form .input-field input:valid + label {
+  color: #6c757d;
+}
+
+.login-form .input-field input:focus + label {
+  color: #6c757d;
+}
+
+.login-form .input-field label {
+  color: white;
+}
+
+.social-container {
+  margin-top: -20px;
+}
+
+.social-container .social-button {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  margin: 10px;
+  font-size: 35px;
+}
+
+.social-container .google {
+  color: #dd4b39;
+}
+
+.social-container .fb {
+  color: #3b5998;
+}
+
+.wallpaper {
+  -webkit-box-shadow: -5px 0px 5px 0px rgba(0, 0, 0, 0.08);
+          box-shadow: -5px 0px 5px 0px rgba(0, 0, 0, 0.08);
+}
+
+.wallpaper img {
+  height: 100%;
+  width: 100%;
+  border-radius: 0 20px 20px 0;
+}
+
+@media (max-width: 800px) {
+  .main-card {
+    display: inherit;
+    width: 500px;
+  }
+  .wallpaper {
+    display: none;
+  }
+  .login-form {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 500px) {
+  body {
+    background-color: white;
+  }
+  .main-card {
+    display: inherit;
+    width: auto;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    margin-top: 60px;
+  }
+  .wallpaper {
+    display: none;
+  }
+  .login-form {
+    margin: 0 auto;
+  }
+}
+/*# sourceMappingURL=quiz_styles.css.map */
