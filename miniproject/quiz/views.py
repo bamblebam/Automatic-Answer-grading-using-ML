@@ -48,7 +48,7 @@ def newQuestionPage(request):
 @login_required
 def questionPage(request, slug):
     response_form = NewResponseForm()
-    score = 0
+
     if request.method == 'POST':
         try:
             response_form = NewResponseForm(request.POST)
@@ -60,6 +60,7 @@ def questionPage(request, slug):
                     [model_answer, response_answer])
                 score = cosine_similarity(sentence_embeddings)[0][1]
                 response = response_form.save(commit=False)
+                response.marks = round(score*100)
                 response.user = request.user
                 response.question = Question.objects.get(slug=slug)
                 response.save()
@@ -73,6 +74,5 @@ def questionPage(request, slug):
     context = {
         'question': question,
         'response_form': response_form,
-        'score': score
     }
     return render(request, 'quiz/question.html', context)
