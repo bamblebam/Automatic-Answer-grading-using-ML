@@ -9,13 +9,12 @@ html {
 .input-field{
     display: flex;
     flex-direction: column-reverse;
-    input:valid+label{
-      color: #6c757d;
-    }
-    input:focus+label{
-      color: #6c757d;
-    }
+
     label{
-        color: #f6f6f6;
+        color: #6c757d;
       }
+  }
+
+  .ques-card{
+    
   }

@@ -17,15 +17,7 @@ html {
           flex-direction: column-reverse;
 }
 
-.input-field input:valid + label {
-  color: #6c757d;
-}
-
-.input-field input:focus + label {
-  color: #6c757d;
-}
-
 .input-field label {
-  color: #f6f6f6;
+  color: #6c757d;
 }
 /*# sourceMappingURL=normal_styles.css.map */

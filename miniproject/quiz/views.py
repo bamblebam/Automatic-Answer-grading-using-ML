@@ -29,19 +29,18 @@ def newQuestionPage(request):
     return render(request, 'quiz/new-question.html', context)
 
 
-# def homePage(request):
-#     questions = Question.objects.all()
-#     context = {
-#         'questions': questions
-#     }
-#     return render(request, 'homepage.html', context)
-
-
 class QuestionListView(FilterView):
     model = Question
     paginate_by = 10
     template_name = "quiz/question_home.html"
     filterset_class = QuestionFilter
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        request_copy = self.request.GET.copy()
+        params = request_copy.pop('page', True) and request_copy.urlencode()
+        context['params'] = params
+        return context
 
 
 def questionPage(request, slug):
