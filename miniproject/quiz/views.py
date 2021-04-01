@@ -8,6 +8,7 @@ from .forms import NewQuestionForm, NewResponseForm, ResponseUpdateForm
 from django_filters.views import FilterView
 from django.views.generic import ListView, UpdateView
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.urls import reverse
 from django.core.exceptions import PermissionDenied
 from .filters import QuestionFilter
 from sentence_transformers import SentenceTransformer
@@ -40,7 +41,7 @@ class QuestionResponseView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         return responses.filter(question=Question.objects.get(slug=self.kwargs.get('slug')))
 
     def test_func(self):
-        if Question.objects.get(slug=self.kwargs.get('slug')).author == request.user:
+        if Question.objects.get(slug=self.kwargs.get('slug')).author == self.request.user:
             return True
         return False
 
@@ -59,6 +60,9 @@ class ResponseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         if self.get_object().question.author == self.request.user:
             return True
         return False
+
+    def get_success_url(self):
+        return reverse('responses', kwargs={'slug': self.get_object().question.slug})
 
 
 @login_required
