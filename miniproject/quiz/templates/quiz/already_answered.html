@@ -1,0 +1,22 @@
+{% extends 'layouts/quiz_page.html' %}
+{% load widget_tweaks %}
+
+{% block title %}403{% endblock %}
+{% block content %}
+<div class="login my-auto">
+    <form action="" method="POST" class="login-form">
+        {% csrf_token %}
+        <div class="title text-center">
+            <h1>Already Answered</h1>
+            <hr>
+        </div>
+        <div class="my-3 text-center">
+            <h3>It seems you have already answered the question.</h3>
+        </div>
+        <div class="mt-5 d-flex justify-content-center">
+            <a href="{% url 'quiz-home' %}" class="btn btn-primary">Go Back</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

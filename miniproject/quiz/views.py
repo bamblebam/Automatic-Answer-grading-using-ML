@@ -91,7 +91,7 @@ def questionPage(request, slug):
     question_answer = Question.objects.get(
         slug=slug).responses.filter(user=request.user)
     if len(question_answer) > 0:
-        raise PermissionDenied
+        return redirect('already-answered')
     response_form = NewResponseForm()
     if request.method == 'POST':
         try:
@@ -120,3 +120,7 @@ def questionPage(request, slug):
         'response_form': response_form,
     }
     return render(request, 'quiz/question.html', context)
+
+
+def already_answered(request):
+    return render(request, 'quiz/already_answered.html')

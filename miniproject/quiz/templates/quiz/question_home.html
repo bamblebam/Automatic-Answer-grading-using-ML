@@ -3,9 +3,11 @@
 
 {% block title %}Questions{% endblock %}
 {% block content %}
+{% if request.user.is_teacher %}
 <div class="container mt-4">
   <a href="{% url 'new-question' %}" class="btn btn-primary w-100 p-3">Create Question</a>
 </div>
+{% endif %}
 <div class="container">
   <form action="" class="row my-5">
     <div class="form-group input-field col-lg-4">

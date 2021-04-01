@@ -8,4 +8,5 @@ urlpatterns = [
     path('responses/<slug>', views.QuestionResponseView.as_view(), name='responses'),
     path('response-update/<slug>',
          views.ResponseUpdateView.as_view(), name='response-update'),
+    path('errors/already-answered', views.already_answered, name='already-answered')
 ]
