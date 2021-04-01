@@ -2,8 +2,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Question, Response
+from .decorator import is_teacher
 from .forms import NewQuestionForm, NewResponseForm
 from django_filters.views import FilterView
+from django.core.exceptions import PermissionDenied
 from .filters import QuestionFilter
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -25,7 +27,8 @@ class QuestionListView(FilterView):
         return context
 
 
-@login_required  # Teacher boolean
+@login_required
+@is_teacher
 def newQuestionPage(request):
     form = NewQuestionForm()
 
@@ -47,8 +50,11 @@ def newQuestionPage(request):
 
 @login_required
 def questionPage(request, slug):
+    question_answer = Question.objects.get(
+        slug=slug).responses.filter(user=request.user)
+    if len(question_answer) > 0:
+        raise PermissionDenied
     response_form = NewResponseForm()
-
     if request.method == 'POST':
         try:
             response_form = NewResponseForm(request.POST)
