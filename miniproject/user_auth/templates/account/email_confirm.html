@@ -1,43 +1,23 @@
+{% extends 'layouts/page.html' %}
+{% load widget_tweaks %}
 {% load static %}
-{% load account socialaccount %}
-<!DOCTYPE html>
-<html lang="en">
+<!-- Change made-->
+{% block content %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Confirm</title>
-    <!--Bootstrap CDN-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!--Fonts-->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-
-    <!--Fontawesome-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-        crossorigin="anonymous" />
-    <link rel="stylesheet" href="{% static 'css/authentication.css' %}" type="text/css">
-
-</head>
-
-<body>
-
-    <!-- Navbar-->
-    {% include 'custom/navbar.html' %}
-
-    <!-- Sign IN /Login Authentication-->
-    <div class="container d-flex justify-content-center" style="margin-top: 200px;">
-        <form action="" method="post" class="form-mw">
-            {% csrf_token %}
-            <h2 class="text-center mb-2">Confirm Email</h2>
-            <button type="submit" class="btn btn-secondary w-100 p-2">Confirm Email</button>
-    </div>
+<div class="login my-auto">
+    <form action="" method="POST" class="login-form">
+        {% csrf_token %}
+        <div class="title text-center">
+            <h1>Verify Email</h1>
+            <hr>
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-secondary w-100 p-2">Verify Email</button>
+        </div>
     </form>
-    </div>
-</body>
+</div>
+<div class="wallpaper">
+    <img src="{% static 'images/card_wp.jpg' %}" alt="">
+</div>
 
-</html>
+{% endblock %}
