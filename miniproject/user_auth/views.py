@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.urls.base import reverse
 from quiz.models import Question, Response
 from .models import User
 from django.views.generic import UpdateView
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.contrib.auth import logout
 # Create your views here.
 
 
@@ -26,7 +27,7 @@ def dashboard(request):
     return render(request, 'custom/dashboard.html', context=context)
 
 
-class UserUpdateView(UserPassesTestMixin, UpdateView):
+class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = User
     fields = ['first_name', 'last_name']
     template_name = 'custom/user_update.html'
@@ -38,3 +39,8 @@ class UserUpdateView(UserPassesTestMixin, UpdateView):
         if self.request.user == self.get_object():
             return True
         return False
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('home')
