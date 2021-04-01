@@ -5,6 +5,13 @@
 <div class="login my-auto">
   <form action="" method="POST" class="login-form">
     {% csrf_token %}
+    {% if form.errors %}
+    {% for key, value in form.errors.items %}
+    <div class="alert alert-danger text-center">
+      {{value}}
+    </div>
+    {% endfor %}
+    {% endif %}
     <div class="title text-center">
       <h1>Answer Question</h1>
       <hr>
