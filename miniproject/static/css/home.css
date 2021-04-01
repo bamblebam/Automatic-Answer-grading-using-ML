@@ -37,7 +37,7 @@ html {
           transform: translate(-50%, -50%);
   z-index: 2;
   width: 80%;
-  padding: 20px;
+  padding: 150px 25px;
   text-align: center;
 }
 
@@ -238,6 +238,9 @@ footer {
     width: 800px;
     right: 10%;
     bottom: 60%;
+  }
+  .bg-text {
+    padding: 100px 25px;
   }
   .about {
     -webkit-box-orient: vertical;
