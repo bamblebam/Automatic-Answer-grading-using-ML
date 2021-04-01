@@ -1,4 +1,5 @@
 # Create your views here.
+from django.http import request
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Question, Response
@@ -6,6 +7,7 @@ from .decorator import is_teacher
 from .forms import NewQuestionForm, NewResponseForm, ResponseUpdateForm
 from django_filters.views import FilterView
 from django.views.generic import ListView, UpdateView
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from .filters import QuestionFilter
 from sentence_transformers import SentenceTransformer
@@ -28,7 +30,7 @@ class QuestionListView(FilterView):
         return context
 
 
-class QuestionResponseView(ListView):
+class QuestionResponseView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Response
     paginate_by = 10
     template_name = 'quiz/responses.html'
@@ -37,8 +39,13 @@ class QuestionResponseView(ListView):
         responses = super().get_queryset()
         return responses.filter(question=Question.objects.get(slug=self.kwargs.get('slug')))
 
+    def test_func(self):
+        if Question.objects.get(slug=self.kwargs.get('slug')).author == request.user:
+            return True
+        return False
 
-class ResponseUpdateView(UpdateView):
+
+class ResponseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Response
     form_class = ResponseUpdateForm
     template_name = 'quiz/response_update.html'
@@ -47,6 +54,11 @@ class ResponseUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         context["question"] = self.object.question
         return context
+
+    def test_func(self):
+        if self.get_object().question.author == self.request.user:
+            return True
+        return False
 
 
 @login_required
