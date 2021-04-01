@@ -1,0 +1,37 @@
+{% extends 'layouts/page.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="login my-auto">
+    <form action="" method="POST" class="login-form">
+        {% csrf_token %}
+        {% if form.errors %}
+        {% for key, value in form.errors.items %}
+        <div class="alert alert-danger text-center">
+            {{value}}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="title text-center">
+            <h1>Update Details</h1>
+            <hr>
+        </div>
+        <div class="form-group my-1 input-field">
+            {{form.first_name|add_class:"form-control"}}
+            <label for="" class="small">First Name</label>
+        </div>
+        <div class="form-group my-1 input-field">
+            {{form.last_name|add_class:"form-control"}}
+            <label for="" class="small">Last Name</label>
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-secondary w-100 p-2">Update Details</button>
+        </div>
+    </form>
+</div>
+<div class="wallpaper">
+    <img src="../../../static/images/card_wp.jpg" alt="">
+</div>
+
+{% endblock %}
