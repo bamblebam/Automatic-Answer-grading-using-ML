@@ -77,7 +77,7 @@
             {% for question in questions %}
             <tr>
                 <td>{{forloop.counter}}</td>
-                <td><a href="{% url 'responses' question.slug %}">{{question.title}}</a></td>
+                <td>{{question.title}}</td>
                 <td>{{question.question_code}}</td>
             </tr>
             {% endfor %}

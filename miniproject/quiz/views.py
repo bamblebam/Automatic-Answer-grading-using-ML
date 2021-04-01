@@ -5,6 +5,7 @@ from .models import Question, Response
 from .decorator import is_teacher
 from .forms import NewQuestionForm, NewResponseForm
 from django_filters.views import FilterView
+from django.views.generic import ListView
 from django.core.exceptions import PermissionDenied
 from .filters import QuestionFilter
 from sentence_transformers import SentenceTransformer
@@ -25,6 +26,16 @@ class QuestionListView(FilterView):
         params = request_copy.pop('page', True) and request_copy.urlencode()
         context['params'] = params
         return context
+
+
+class QuestionResponseView(ListView):
+    model = Response
+    paginate_by = 10
+    template_name = 'quiz/responses.html'
+
+    def get_queryset(self):
+        responses = super().get_queryset()
+        return responses.filter(question=Question.objects.get(slug=self.kwargs.get('slug')))
 
 
 @login_required
