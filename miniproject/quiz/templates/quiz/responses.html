@@ -10,6 +10,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Student</th>
                 <th scope="col">Score</th>
+                <th scope="col">Edit</th>
             </tr>
         </thead>
         <tbody>
@@ -18,6 +19,7 @@
                 <td>{{forloop.counter}}</td>
                 <td>{{response.user}}</td>
                 <td>{{response.marks}}</td>
+                <td><a href="{% url 'response-update' response.slug %}">Edit</a></td>
             </tr>
             {% endfor %}
         </tbody>

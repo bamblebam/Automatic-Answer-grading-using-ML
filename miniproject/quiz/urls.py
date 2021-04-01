@@ -6,4 +6,6 @@ urlpatterns = [
     path("", views.QuestionListView.as_view(), name='quiz-home'),
     path('question/<slug>', views.questionPage, name='question'),
     path('responses/<slug>', views.QuestionResponseView.as_view(), name='responses'),
+    path('response-update/<slug>',
+         views.ResponseUpdateView.as_view(), name='response-update'),
 ]

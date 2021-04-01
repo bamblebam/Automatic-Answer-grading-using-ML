@@ -3,9 +3,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Question, Response
 from .decorator import is_teacher
-from .forms import NewQuestionForm, NewResponseForm
+from .forms import NewQuestionForm, NewResponseForm, ResponseUpdateForm
 from django_filters.views import FilterView
-from django.views.generic import ListView
+from django.views.generic import ListView, UpdateView
 from django.core.exceptions import PermissionDenied
 from .filters import QuestionFilter
 from sentence_transformers import SentenceTransformer
@@ -36,6 +36,17 @@ class QuestionResponseView(ListView):
     def get_queryset(self):
         responses = super().get_queryset()
         return responses.filter(question=Question.objects.get(slug=self.kwargs.get('slug')))
+
+
+class ResponseUpdateView(UpdateView):
+    model = Response
+    form_class = ResponseUpdateForm
+    template_name = 'quiz/response_update.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["question"] = self.object.question
+        return context
 
 
 @login_required
