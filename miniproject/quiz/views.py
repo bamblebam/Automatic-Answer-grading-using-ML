@@ -131,3 +131,15 @@ class CreateExam(LoginRequiredMixin, CreateView):
     template_name = 'quiz/create_exam.html'
     fields = ['title', 'num_questions']
     context_object_name = 'exam'
+
+    def form_valid(self, form):
+        form.instance.save()
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('add-questions', kwargs={'slug': self.object.slug})
+
+
+def addQuestionsToExam(request, slug):
+    return render(request, 'quiz/add_questions.html')

@@ -45,9 +45,10 @@ class Response(models.Model):
 
 
 class Exam(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, blank=True)
     num_questions = models.IntegerField(default=5, validators=[
-        MinValueValidator(0), MaxValueValidator(100)])
+        MinValueValidator(1), MaxValueValidator(100)])
     questions = models.ManyToManyField(Question, symmetrical=False)
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, null=True, blank=True)
@@ -65,13 +66,15 @@ class Exam(models.Model):
 
 
 class ExamResponse(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, blank=True)
+    exam = models.ForeignKey(
+        Exam, on_delete=models.CASCADE, null=True, blank=True)
     responses = models.ManyToManyField(Response, symmetrical=False)
     slug = models.SlugField(max_length=200, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     marks = models.IntegerField(default=0, validators=[
-        MinValueValidator(0), MaxValueValidator(100)])
+        MinValueValidator(1), MaxValueValidator(100)])
 
     def __str__(self):
         return self.exam.title
