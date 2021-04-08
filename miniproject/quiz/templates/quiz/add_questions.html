@@ -16,24 +16,19 @@
             <h1>Create Exam</h1>
             <hr>
         </div>
+        {{ formset.management_form }}
         {% for form in formset %}
         <div class="form-group my-1 input-field">
-            {{form.title|add_class:"form-control"}}
-            <label for="" class="small">Question</label>
+            {{form.title|add_class:"form-control"|attr:"required"}}
+            <label for="" class="small">Question {{forloop.counter}}</label>
         </div>
         <div class="form-group my-1 input-field">
-            {{form.model_answer|add_class:"form-control"|attr:"placeholder:Model Answer"}}
-            <label for="" class="small">Model Answer</label>
+            {{form.model_answer|add_class:"form-control"|attr:"placeholder:Model Answer"|attr:"required"}}
+            <label for="" class="small">Model Answer {{forloop.counter}}</label>
         </div>
+        <hr>
+        <br>
         {% endfor %}
-        <!-- <div class="form-group my-1 input-field">
-            {{form.title|add_class:"form-control"|attr:"placeholder:Title"}}
-            <label for="" class="small">Title</label>
-        </div>
-        <div class="form-group my-1 input-field">
-            {{form.num_questions|add_class:"form-control"|attr:"placeholder:Number of Questions"}}
-            <label for="" class="small">Number of Questions</label>
-        </div> -->
         <div class="mt-4">
             <button type="button" class="btn btn-secondary w-100 p-2" data-toggle="modal" data-target="#exampleModal">
                 Create Exam
