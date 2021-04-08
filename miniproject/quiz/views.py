@@ -2,11 +2,11 @@
 from django.http import request
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Question, Response
+from .models import Question, Response, Exam, ExamResponse
 from .decorator import is_teacher
 from .forms import NewQuestionForm, NewResponseForm, ResponseUpdateForm
 from django_filters.views import FilterView
-from django.views.generic import ListView, UpdateView
+from django.views.generic import ListView, UpdateView, CreateView
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.urls import reverse
 from django.core.exceptions import PermissionDenied
@@ -124,3 +124,10 @@ def questionPage(request, slug):
 
 def already_answered(request):
     return render(request, 'quiz/already_answered.html')
+
+
+class CreateExam(LoginRequiredMixin, CreateView):
+    model = Exam
+    template_name = 'quiz/create_exam.html'
+    fields = ['title', 'num_questions']
+    context_object_name = 'exam'

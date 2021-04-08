@@ -1,0 +1,59 @@
+{% extends 'layouts/quiz_page.html' %}
+{% load widget_tweaks %}
+{% block title %}New Exam{% endblock %}
+{% block content %}
+<div class="login my-auto">
+    <form action="" method="POST" class="login-form">
+        {% csrf_token %}
+        {% if form.errors %}
+        {% for key, value in form.errors.items %}
+        <div class="alert alert-danger text-center">
+            {{value}}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="title text-center">
+            <h1>Create Exam</h1>
+            <hr>
+        </div>
+        <div class="form-group my-1 input-field">
+            {{form.title|add_class:"form-control"|attr:"placeholder:Title"}}
+            <label for="" class="small">Title</label>
+        </div>
+        <div class="form-group my-1 input-field">
+            {{form.num_questions|add_class:"form-control"|attr:"placeholder:Number of Questions"}}
+            <label for="" class="small">Number of Questions</label>
+        </div>
+        <div class="mt-4">
+            <button type="button" class="btn btn-secondary w-100 p-2" data-toggle="modal" data-target="#exampleModal">
+                Create Question
+            </button>
+        </div>
+        <!-- modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Create Question</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Once the question has been created it cannot be modified.
+                        <br>
+                        Are you sure you want to proceed?
+                        <br>
+                        You can find the question code to easily identify the question in your profile.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger w-100" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success w-100">Create Question</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

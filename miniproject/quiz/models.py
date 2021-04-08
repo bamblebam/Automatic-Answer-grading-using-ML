@@ -46,6 +46,8 @@ class Response(models.Model):
 
 class Exam(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    num_questions = models.IntegerField(default=5, validators=[
+        MinValueValidator(0), MaxValueValidator(100)])
     questions = models.ManyToManyField(Question, symmetrical=False)
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, null=True, blank=True)
