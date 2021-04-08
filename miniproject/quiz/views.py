@@ -1,11 +1,12 @@
 # Create your views here.
+from django.db.models.query import QuerySet
 from django.http import request
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import modelformset_factory
 from django.contrib.auth.decorators import login_required
 from .models import Question, Response, Exam, ExamResponse
 from .decorator import is_teacher
-from .forms import NewQuestionForm, NewResponseForm, ResponseUpdateForm
+from .forms import NewQuestionForm, NewResponseForm, ResponseUpdateForm, EmptyQueryBaseModelFormSet
 from django_filters.views import FilterView
 from django.views.generic import ListView, UpdateView, CreateView
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
@@ -145,7 +146,7 @@ class CreateExam(LoginRequiredMixin, CreateView):
 def addQuestionsToExam(request, slug):
     exam = get_object_or_404(Exam, slug=slug)
     ExamQuestionFormset = modelformset_factory(Question,
-                                               form=NewQuestionForm, extra=exam.num_questions, can_order=True)
+                                               form=NewQuestionForm, extra=exam.num_questions, can_order=True, formset=EmptyQueryBaseModelFormSet)
     if request.method == 'POST':
         formset = ExamQuestionFormset(request.POST)
     else:

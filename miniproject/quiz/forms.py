@@ -1,6 +1,7 @@
 from django.db.models import fields
 from .models import Question, Response
 from django import forms
+from django.forms import BaseModelFormSet
 
 
 class NewQuestionForm(forms.ModelForm):
@@ -28,3 +29,9 @@ class ResponseUpdateForm(forms.ModelForm):
     class Meta:
         model = Response
         fields = ['body', 'marks']
+
+
+class EmptyQueryBaseModelFormSet(BaseModelFormSet):
+    def __init__(self, *args, **kwargs):
+        super(EmptyQueryBaseModelFormSet, self).__init__(*args, **kwargs)
+        self.queryset = Question.objects.none()
