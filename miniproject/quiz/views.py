@@ -149,6 +149,14 @@ def addQuestionsToExam(request, slug):
                                                form=NewQuestionForm, extra=exam.num_questions, can_order=True, formset=EmptyQueryBaseModelFormSet)
     if request.method == 'POST':
         formset = ExamQuestionFormset(request.POST)
+        instances = formset.save()
+        for instance in instances:
+            instance.author = request.user
+            instance.is_exam = True
+            instance.save()
+            exam.questions.add(instance)
+            exam.save()
+            return redirect('quiz-home')
     else:
         formset = ExamQuestionFormset()
 

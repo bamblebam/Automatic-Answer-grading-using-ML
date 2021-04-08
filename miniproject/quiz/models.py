@@ -7,7 +7,8 @@ from uuid import uuid4
 
 
 class Question(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=200)
     model_answer = models.TextField(null=True)
     question_code = models.CharField(max_length=200, default=uuid4().hex[:6])
@@ -25,7 +26,8 @@ class Question(models.Model):
 
 
 class Response(models.Model):
-    user = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, blank=True)
     question = models.ForeignKey(
         Question, on_delete=models.CASCADE, related_name='responses')
     body = models.TextField(null=False)
