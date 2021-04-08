@@ -25,6 +25,10 @@ class QuestionListView(FilterView):
     template_name = "quiz/question_home.html"
     filterset_class = QuestionFilter
 
+    def get_queryset(self):
+        questions = super().get_queryset()
+        return questions.filter(is_exam=False)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         request_copy = self.request.GET.copy()
@@ -156,7 +160,7 @@ def addQuestionsToExam(request, slug):
             instance.save()
             exam.questions.add(instance)
             exam.save()
-            return redirect('quiz-home')
+        return redirect('quiz-home')
     else:
         formset = ExamQuestionFormset()
 
