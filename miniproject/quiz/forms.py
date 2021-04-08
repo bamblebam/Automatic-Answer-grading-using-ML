@@ -1,5 +1,3 @@
-from logging import disable
-
 from django.db.models import fields
 from .models import Question, Response
 from django import forms
