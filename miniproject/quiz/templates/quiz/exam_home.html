@@ -38,7 +38,7 @@
     {% for exam in object_list %}
     <div class="card my-4 ques-card">
         <div class="card-body">
-            <h5 class="card-title"><a href="">{{exam.title}}</a></h5>
+            <h5 class="card-title"><a href="{% url 'new-exam-response' exam.slug %}">{{exam.title}}</a></h5>
             <p class="card-text text-right">By {{exam.author}}</p>
         </div>
     </div>

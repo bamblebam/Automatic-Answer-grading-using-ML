@@ -184,3 +184,19 @@ def addQuestionsToExam(request, slug):
 
     context = {'formset': formset}
     return render(request, 'quiz/add_questions.html', context)
+
+
+class CreateExamResponse(LoginRequiredMixin, CreateView):
+    model = ExamResponse
+    fields = ['slug']
+    template_name = 'quiz/create_examresponse.html'
+    context_object_name = 'exam_response'
+
+    def form_valid(self, form):
+        form.instance.save()
+        form.instance.user = self.request.user
+        form.instance.exam = Exam.objects.get(slug=self.kwargs.get('slug'))
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('exam-home')
