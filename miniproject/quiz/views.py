@@ -12,7 +12,7 @@ from django.views.generic import ListView, UpdateView, CreateView
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.urls import reverse
 from django.core.exceptions import PermissionDenied
-from .filters import QuestionFilter
+from .filters import QuestionFilter, ExamFilter
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -28,6 +28,24 @@ class QuestionListView(FilterView):
     def get_queryset(self):
         questions = super().get_queryset()
         return questions.filter(is_exam=False)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        request_copy = self.request.GET.copy()
+        params = request_copy.pop('page', True) and request_copy.urlencode()
+        context['params'] = params
+        return context
+
+
+class ExamListView(FilterView):
+    model = Exam
+    paginate_by = 10
+    template_name = "quiz/exam_home.html"
+    filterset_class = ExamFilter
+
+    def get_queryset(self):
+        exams = super().get_queryset()
+        return exams
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
