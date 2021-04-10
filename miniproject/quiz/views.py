@@ -198,5 +198,10 @@ class CreateExamResponse(LoginRequiredMixin, CreateView):
         form.instance.exam = Exam.objects.get(slug=self.kwargs.get('slug'))
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['exam'] = Exam.objects.get(slug=self.kwargs.get('slug'))
+        return context
+
     def get_success_url(self):
         return reverse('exam-home')
