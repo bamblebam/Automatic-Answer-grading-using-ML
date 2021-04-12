@@ -1,0 +1,42 @@
+{% extends 'layouts/quiz_page.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Update Response{% endblock %}
+{% block content %}
+<div class="login my-auto">
+    <form action="" method="POST" class="login-form">
+        {% csrf_token %}
+        {% if form.errors %}
+        {% for key, value in form.errors.items %}
+        <div class="alert alert-danger text-center">
+            {{value}}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="title text-center">
+            <h1>Edit Response</h1>
+            <hr>
+        </div>
+        {% for response in responses %}
+        <div class="ques-desc">
+            <div class="question">
+                <h3>Q</h3>
+                <h3>{{response.question.title}}</h3>
+            </div>
+            <h5 class="text-right">Response by {{object.user}}</h5>
+        </div>
+        <div class="form-group my-1 input-field">
+            {{form.body|add_class:"form-control"|attr:"placeholder:Answer"}}
+            <label for="" class="small">Answer</label>
+        </div>
+        {% endfor %}
+        <div class="form-group my-1 input-field">
+            {{form.marks|add_class:"form-control"|attr:"placeholder:Score"}}
+            <label for="" class="small">Score</label>
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-secondary w-100">Edit Response</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

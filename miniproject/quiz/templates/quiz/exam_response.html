@@ -22,7 +22,7 @@
                 <td>{{forloop.counter}}</td>
                 <td>{{response.user}}</td>
                 <td>{{response.marks}}</td>
-                <td><a href="{% url 'response-update' response.slug %}">Edit</a></td>
+                <td><a href="{% url 'exam-responses-update' response.slug %}">Edit</a></td>
             </tr>
             {% endfor %}
         </tbody>

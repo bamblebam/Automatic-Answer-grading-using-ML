@@ -70,21 +70,6 @@ class QuestionResponseView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         return False
 
 
-class ExamResponseView(LoginRequiredMixin, UserPassesTestMixin, ListView):
-    model = ExamResponse
-    paginate_by = 10
-    template_name = 'quiz/exam_response.html'
-
-    def get_queryset(self):
-        responses = super().get_queryset()
-        return responses.filter(exam=Exam.objects.get(slug=self.kwargs.get('slug')))
-
-    def test_func(self):
-        if Exam.objects.get(slug=self.kwargs.get('slug')).author == self.request.user:
-            return True
-        return False
-
-
 class ResponseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Response
     form_class = ResponseUpdateForm
@@ -102,6 +87,52 @@ class ResponseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('responses', kwargs={'slug': self.get_object().question.slug})
+
+
+class ExamResponseView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = ExamResponse
+    paginate_by = 10
+    template_name = 'quiz/exam_response.html'
+
+    def get_queryset(self):
+        responses = super().get_queryset()
+        return responses.filter(exam=Exam.objects.get(slug=self.kwargs.get('slug')))
+
+    def test_func(self):
+        if Exam.objects.get(slug=self.kwargs.get('slug')).author == self.request.user:
+            return True
+        return False
+
+
+class ExamResponseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = ExamResponse
+    paginate_by = 10
+    fields = ['marks']
+    template_name = 'quiz/exam_response_update.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        responses = self.object.responses.all()
+        questions = self.object.exam.questions.all()
+        # unanswered_questions = [
+        #     question for question in questions if question not in response.question for response in responses]
+        responded_questions = [response.question for response in responses]
+        complete_response = list(responses).copy()
+        for i, question in enumerate(questions):
+            if question not in responded_questions:
+                complete_response.insert(i, question)
+
+        context['responses'] = complete_response
+        # context['unanswerd_questions'] = unanswered_questions
+        return context
+
+    def test_func(self):
+        if self.get_object().exam.author == self.request.user:
+            return True
+        return False
+
+    def get_success_url(self):
+        return reverse('exam-responses', kwargs={'slug': self.get_object().exam.slug})
 
 
 @login_required
