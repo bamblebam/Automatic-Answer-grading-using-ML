@@ -12,6 +12,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Student</th>
+                <th scope="col">Roll No</th>
                 <th scope="col">Score</th>
                 <th scope="col">Edit</th>
             </tr>
@@ -21,6 +22,7 @@
             <tr>
                 <td>{{forloop.counter}}</td>
                 <td>{{response.user}}</td>
+                <td>{{response.user.roll_no}}</td>
                 <td>{{response.marks}}</td>
                 <td><a href="{% url 'response-update' response.slug %}">Edit</a></td>
             </tr>

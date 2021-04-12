@@ -35,7 +35,7 @@ def details_filled(function):
             messages.warning(
                 "Fill in your details before proceeding.", extra_tags='details')
             return function(request, *args, **kwargs)
-        return redirect('user-update', kwargs={'slug': user.slug})
+        return redirect('user-update', user.slug)
     return wrap
 
 
@@ -61,4 +61,4 @@ class DetailsFilledMixin():
             messages.warning(
                 "Fill in your details before proceeding.", extra_tags='details')
             return super().dispatch(request, *args, **kwargs)
-        return redirect('user-update', kwargs={'slug': user.slug})
+        return redirect('user-update', user.slug)
