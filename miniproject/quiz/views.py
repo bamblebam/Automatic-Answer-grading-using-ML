@@ -165,6 +165,8 @@ class CreateExam(LoginRequiredMixin, CreateView):
         return reverse('add-questions', kwargs={'slug': self.object.slug})
 
 
+@login_required
+@is_teacher
 def addQuestionsToExam(request, slug):
     exam = get_object_or_404(Exam, slug=slug)
     ExamQuestionFormset = modelformset_factory(Question,
@@ -204,4 +206,16 @@ class CreateExamResponse(LoginRequiredMixin, CreateView):
         return context
 
     def get_success_url(self):
-        return reverse('exam-home')
+        return reverse('add-response', kwargs={'slug': self.object.slug})
+
+
+@login_required
+@is_teacher
+def addResponseToExam(request, slug):
+    exam_response = get_object_or_404(ExamResponse, slug=slug)
+    exam = exam_response.exam
+    questions = exam.questions.all()
+    context = {
+        'questions': questions
+    }
+    return render(request, 'quiz/add_response.html', context=context)

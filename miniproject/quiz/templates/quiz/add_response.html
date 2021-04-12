@@ -13,12 +13,22 @@
         {% endfor %}
         {% endif %}
         <div class="title text-center">
-            <h1>Answer Exam</h1>
+            <h1>Create Exam</h1>
             <hr>
         </div>
-        <div class="text-center">
-            <h3>You are about to begin the {{exam.title}}. Are you {{request.user}}? If not please logout.</h3>
+        {{ formset.management_form }}
+        {% for form in formset %}
+        <div class="form-group my-1 input-field">
+            {{form.title|add_class:"form-control"|attr:"required"}}
+            <label for="" class="small">Question {{forloop.counter}}</label>
         </div>
+        <div class="form-group my-1 input-field">
+            {{form.model_answer|add_class:"form-control"|attr:"placeholder:Model Answer"|attr:"required"}}
+            <label for="" class="small">Model Answer {{forloop.counter}}</label>
+        </div>
+        <hr>
+        <br>
+        {% endfor %}
         <div class="mt-4">
             <button type="button" class="btn btn-secondary w-100 p-2" data-toggle="modal" data-target="#exampleModal">
                 Answer Exam
@@ -30,13 +40,13 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Create Exam</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Answer Exam</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        Once the Exam has started please do not leave in middle this will result in 0 marks.
+                        Once the Exam has been answered it cannot be modified.
                         <br>
                         Are you sure you want to proceed?
                         <br>
