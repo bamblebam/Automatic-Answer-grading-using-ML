@@ -70,6 +70,21 @@ class QuestionResponseView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         return False
 
 
+class ExamResponseView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = ExamResponse
+    paginate_by = 10
+    template_name = 'quiz/exam_response.html'
+
+    def get_queryset(self):
+        responses = super().get_queryset()
+        return responses.filter(exam=Exam.objects.get(slug=self.kwargs.get('slug')))
+
+    def test_func(self):
+        if Exam.objects.get(slug=self.kwargs.get('slug')).author == self.request.user:
+            return True
+        return False
+
+
 class ResponseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Response
     form_class = ResponseUpdateForm

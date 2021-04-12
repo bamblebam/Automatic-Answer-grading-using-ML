@@ -13,6 +13,8 @@ urlpatterns = [
          views.CreateExam.as_view(), name='new-exam'),
     path('new-exam-response/<slug>',
          views.CreateExamResponse.as_view(), name='new-exam-response'),
+    path('exam-responses/<slug>',
+         views.ExamResponseView.as_view(), name='exam-responses'),
     path('add-questions/<slug>', views.addQuestionsToExam, name='add-questions'),
     path('add-response/<slug>', views.addResponseToExam, name='add-response'),
     path('errors/already-answered', views.already_answered, name='already-answered')

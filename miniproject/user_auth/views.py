@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.urls.base import reverse
-from quiz.models import Question, Response
+from quiz.models import Question, Response, Exam, ExamResponse
 from .models import User
 from django.views.generic import UpdateView
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
@@ -20,9 +20,14 @@ def dashboard(request):
         author=user, is_exam=False).order_by("-date_added")
     questions_responded = Response.objects.filter(
         user=user, is_exam=False).order_by("-date_added")
+    exams_created = Exam.objects.filter(author=user).order_by("-date_added")
+    exams_answered = ExamResponse.objects.filter(
+        user=user).order_by("-date_added")
     context = {
         'questions': questions_created,
-        'responses': questions_responded
+        'responses': questions_responded,
+        'exams': exams_created,
+        'exam_response': exams_answered
     }
     return render(request, 'custom/dashboard.html', context=context)
 

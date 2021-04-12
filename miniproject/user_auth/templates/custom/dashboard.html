@@ -112,6 +112,57 @@
     </table>
     <br>
     {% endif %}
-    <br>
 </div>
+
+<div class="container my-4">
+    {% if exams|length %}
+    <h2>Exams Created</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Exam Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for exam in exams %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td><a href="{% url 'exam-responses' exam.slug %}">{{exam.title}}</a></td>
+                <td>{{exam.exam_code}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    {% endif %}
+</div>
+
+<div class="container my-4">
+    {% if exam_response|length %}
+    <h2>Exams Answered</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">marks</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for exam in exam_response %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{exam.exam.title}}</td>
+                <td>{{exam.marks}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    {% endif %}
+</div>
+
+<br>
 {% endblock %}
