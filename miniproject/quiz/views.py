@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import modelformset_factory
 from django.contrib.auth.decorators import login_required
 from .models import Question, Response, Exam, ExamResponse
-from .decorator import is_teacher
+from .decorator import is_teacher, question_answered, IsTeacherMixin, ExamAnsweredMixin
 from .forms import NewQuestionForm, NewResponseForm, ResponseUpdateForm, ExamResponseForm, EmptyQueryBaseModelFormSet
 from django_filters.views import FilterView
 from django.views.generic import ListView, UpdateView, CreateView
@@ -55,7 +55,7 @@ class ExamListView(FilterView):
         return context
 
 
-class QuestionResponseView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+class QuestionResponseView(LoginRequiredMixin, IsTeacherMixin, UserPassesTestMixin, ListView):
     model = Response
     paginate_by = 10
     template_name = 'quiz/responses.html'
@@ -70,7 +70,7 @@ class QuestionResponseView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         return False
 
 
-class ResponseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class ResponseUpdateView(LoginRequiredMixin, IsTeacherMixin, UserPassesTestMixin, UpdateView):
     model = Response
     form_class = ResponseUpdateForm
     template_name = 'quiz/response_update.html'
@@ -89,7 +89,7 @@ class ResponseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return reverse('responses', kwargs={'slug': self.get_object().question.slug})
 
 
-class ExamResponseView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+class ExamResponseView(LoginRequiredMixin, IsTeacherMixin, UserPassesTestMixin, ListView):
     model = ExamResponse
     paginate_by = 10
     template_name = 'quiz/exam_response.html'
@@ -104,7 +104,7 @@ class ExamResponseView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         return False
 
 
-class ExamResponseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class ExamResponseUpdateView(LoginRequiredMixin, IsTeacherMixin, UserPassesTestMixin, UpdateView):
     model = ExamResponse
     paginate_by = 10
     fields = ['marks']
@@ -114,8 +114,6 @@ class ExamResponseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView
         context = super().get_context_data(**kwargs)
         responses = self.object.responses.all()
         questions = self.object.exam.questions.all()
-        # unanswered_questions = [
-        #     question for question in questions if question not in response.question for response in responses]
         responded_questions = [response.question for response in responses]
         complete_response = list(responses).copy()
         for i, question in enumerate(questions):
@@ -123,7 +121,6 @@ class ExamResponseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView
                 complete_response.insert(i, question)
 
         context['responses'] = complete_response
-        # context['unanswerd_questions'] = unanswered_questions
         return context
 
     def test_func(self):
@@ -157,11 +154,8 @@ def newQuestionPage(request):
 
 
 @login_required
+@question_answered
 def questionPage(request, slug):
-    question_answer = Question.objects.get(
-        slug=slug).responses.filter(user=request.user)
-    if len(question_answer) > 0:
-        return redirect('already-answered')
     response_form = NewResponseForm()
     if request.method == 'POST':
         try:
@@ -196,7 +190,7 @@ def already_answered(request):
     return render(request, 'quiz/already_answered.html')
 
 
-class CreateExam(LoginRequiredMixin, CreateView):
+class CreateExam(LoginRequiredMixin, IsTeacherMixin, CreateView):
     model = Exam
     template_name = 'quiz/create_exam.html'
     fields = ['title', 'num_questions']
@@ -234,7 +228,7 @@ def addQuestionsToExam(request, slug):
     return render(request, 'quiz/add_questions.html', context)
 
 
-class CreateExamResponse(LoginRequiredMixin, CreateView):
+class CreateExamResponse(LoginRequiredMixin, ExamAnsweredMixin, CreateView):
     model = ExamResponse
     fields = ['slug']
     template_name = 'quiz/create_examresponse.html'
