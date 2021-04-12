@@ -38,7 +38,7 @@ class Response(models.Model):
     is_exam = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.body
+        return self.question.title + "-" + str(self.user)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -79,7 +79,7 @@ class ExamResponse(models.Model):
         MinValueValidator(1), MaxValueValidator(100)])
 
     def __str__(self):
-        return self.exam.title
+        return self.exam.title + "-" + str(self.user)
 
     def save(self, *args, **kwargs):
         if not self.slug:
