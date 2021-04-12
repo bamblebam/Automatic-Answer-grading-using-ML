@@ -31,6 +31,14 @@ class ResponseUpdateForm(forms.ModelForm):
         fields = ['body', 'marks']
 
 
+class ExamResponseForm(forms.ModelForm):
+    hidden_question = forms.CharField(widget=forms.HiddenInput())
+
+    class Meta:
+        model = Response
+        fields = ['body']
+
+
 class EmptyQueryBaseModelFormSet(BaseModelFormSet):
     def __init__(self, *args, **kwargs):
         super(EmptyQueryBaseModelFormSet, self).__init__(*args, **kwargs)

@@ -6,7 +6,7 @@ from django.forms import modelformset_factory
 from django.contrib.auth.decorators import login_required
 from .models import Question, Response, Exam, ExamResponse
 from .decorator import is_teacher
-from .forms import NewQuestionForm, NewResponseForm, ResponseUpdateForm, EmptyQueryBaseModelFormSet
+from .forms import NewQuestionForm, NewResponseForm, ResponseUpdateForm, ExamResponseForm, EmptyQueryBaseModelFormSet
 from django_filters.views import FilterView
 from django.views.generic import ListView, UpdateView, CreateView
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
@@ -180,7 +180,7 @@ def addQuestionsToExam(request, slug):
             instance.save()
             exam.questions.add(instance)
             exam.save()
-        return redirect('quiz-home')
+        return redirect('exam-home')
     else:
         formset = ExamQuestionFormset()
 
@@ -215,7 +215,25 @@ def addResponseToExam(request, slug):
     exam_response = get_object_or_404(ExamResponse, slug=slug)
     exam = exam_response.exam
     questions = exam.questions.all()
+    ExamResponseFormset = modelformset_factory(Response, form=ExamResponseForm, extra=len(
+        questions), can_order=True, formset=EmptyQueryBaseModelFormSet)
+    if request.method == 'POST':
+        formset = ExamResponseFormset(request.POST)
+        for form in formset:
+            instance = form.save()
+            instance.user = request.user
+            instance.is_exam = True
+            question_slug = form.cleaned_data['hidden_question']
+            print(question_slug)
+            instance.question = Question.objects.get(slug=question_slug)
+            instance.save()
+            exam_response.add(instance)
+            exam_response.save()
+        return redirect('exam-home')
+    else:
+        formset = ExamResponseFormset()
     context = {
-        'questions': questions
+        'questions': questions,
+        'formset': formset
     }
     return render(request, 'quiz/add_response.html', context=context)
