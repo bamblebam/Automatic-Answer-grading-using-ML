@@ -1,7 +1,9 @@
 from functools import wraps
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
+from django.contrib import messages
 from .models import Response, ExamResponse, Question, Exam
+from user_auth.models import User
 
 
 def is_teacher(function):
@@ -25,6 +27,18 @@ def question_answered(function):
     return wrap
 
 
+def details_filled(function):
+    @wraps(function)
+    def wrap(request, *args, **kwargs):
+        user = request.user
+        if user.first_name and user.last_name and user.roll_no:
+            messages.warning(
+                "Fill in your details before proceeding.", extra_tags='details')
+            return function(request, *args, **kwargs)
+        return redirect('user-update', kwargs={'slug': user.slug})
+    return wrap
+
+
 class IsTeacherMixin():
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.is_teacher:
@@ -38,3 +52,13 @@ class ExamAnsweredMixin():
                 slug=self.kwargs.get('slug')), user=self.request.user).exists():
             return redirect('already-answered')
         return super().dispatch(request, *args, **kwargs)
+
+
+class DetailsFilledMixin():
+    def dispatch(self, request, *args, **kwargs):
+        user = request.user
+        if user.first_name and user.last_name and user.roll_no:
+            messages.warning(
+                "Fill in your details before proceeding.", extra_tags='details')
+            return super().dispatch(request, *args, **kwargs)
+        return redirect('user-update', kwargs={'slug': user.slug})
