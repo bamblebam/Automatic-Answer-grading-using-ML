@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import modelformset_factory
 from django.contrib.auth.decorators import login_required
 from .models import Question, Response, Exam, ExamResponse
-from .decorator import is_teacher, question_answered, IsTeacherMixin, ExamAnsweredMixin
+from .decorator import is_teacher, question_answered, details_filled, IsTeacherMixin, ExamAnsweredMixin, DetailsFilledMixin
 from .forms import NewQuestionForm, NewResponseForm, ResponseUpdateForm, ExamResponseForm, EmptyQueryBaseModelFormSet
 from django_filters.views import FilterView
 from django.views.generic import ListView, UpdateView, CreateView
@@ -154,6 +154,7 @@ def newQuestionPage(request):
 
 
 @login_required
+@details_filled
 @question_answered
 def questionPage(request, slug):
     response_form = NewResponseForm()
@@ -228,7 +229,7 @@ def addQuestionsToExam(request, slug):
     return render(request, 'quiz/add_questions.html', context)
 
 
-class CreateExamResponse(LoginRequiredMixin, ExamAnsweredMixin, CreateView):
+class CreateExamResponse(LoginRequiredMixin, DetailsFilledMixin, ExamAnsweredMixin, CreateView):
     model = ExamResponse
     fields = ['slug']
     template_name = 'quiz/create_examresponse.html'
@@ -250,7 +251,6 @@ class CreateExamResponse(LoginRequiredMixin, ExamAnsweredMixin, CreateView):
 
 
 @login_required
-@is_teacher
 def addResponseToExam(request, slug):
     exam_response = get_object_or_404(ExamResponse, slug=slug)
     exam = exam_response.exam

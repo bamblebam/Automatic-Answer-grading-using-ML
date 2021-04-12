@@ -34,7 +34,7 @@ def dashboard(request):
 
 class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = User
-    fields = ['first_name', 'last_name']
+    fields = ['first_name', 'last_name', 'roll_no']
     template_name = 'custom/user_update.html'
 
     def get_success_url(self):
