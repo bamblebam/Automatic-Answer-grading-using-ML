@@ -219,15 +219,26 @@ def addResponseToExam(request, slug):
         questions), can_order=True, formset=EmptyQueryBaseModelFormSet)
     if request.method == 'POST':
         formset = ExamResponseFormset(request.POST)
+        sbert_model = SentenceTransformer('bert-base-nli-mean-tokens')
+        total_marks = list()
         for form in formset:
             if form.is_valid():
                 instance = form.save()
                 instance.user = request.user
                 instance.is_exam = True
                 question_slug = form.cleaned_data['hidden_question']
-                instance.question = Question.objects.get(slug=question_slug)
+                question = Question.objects.get(slug=question_slug)
+                model_answer = question.model_answer
+                response_answer = instance.body
+                sentence_embeddings = sbert_model.encode(
+                    [model_answer, response_answer])
+                score = cosine_similarity(sentence_embeddings)[0][1]
+                instance.marks = round(score*100)
+                total_marks.append(instance.marks)
+                instance.question = question
                 instance.save()
                 exam_response.responses.add(instance)
+                exam_response.marks = round(sum(total_marks)/len(questions))
                 exam_response.save()
         return redirect('exam-home')
     else:

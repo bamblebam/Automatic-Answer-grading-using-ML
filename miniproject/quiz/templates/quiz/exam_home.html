@@ -5,7 +5,7 @@
 {% block content %}
 {% if request.user.is_teacher %}
 <div class="container mt-4">
-    <a href="{% url 'new-question' %}" class="btn btn-primary w-100 p-3">Create Exam</a>
+    <a href="{% url 'new-exam' %}" class="btn btn-primary w-100 p-3">Create Exam</a>
 </div>
 {% endif %}
 <div class="container mt-4">
