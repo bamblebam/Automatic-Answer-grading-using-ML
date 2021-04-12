@@ -18,17 +18,33 @@
             <hr>
         </div>
         {% for response in responses %}
+        {% if response.question %}
         <div class="ques-desc">
             <div class="question">
-                <h3>Q</h3>
+                <h3>Q {{forloop.counter}}</h3>
                 <h3>{{response.question.title}}</h3>
             </div>
             <h5 class="text-right">Response by {{object.user}}</h5>
         </div>
         <div class="form-group my-1 input-field">
-            {{form.body|add_class:"form-control"|attr:"placeholder:Answer"}}
+            <textarea name="" id="" cols="30" rows="10" disabled class="form-control">{{response.body}}</textarea>
             <label for="" class="small">Answer</label>
         </div>
+        {% else %}
+        <div class="ques-desc">
+            <div class="question">
+                <h3>Q {{forloop.counter}}</h3>
+                <h3>{{response.title}}</h3>
+            </div>
+            <h5 class="text-right">Response by {{object.user}}</h5>
+        </div>
+        <div class="form-group my-1 input-field">
+            <textarea name="" id="" cols="30" rows="10" disabled class="form-control">{{response.body}}</textarea>
+            <label for="" class="small">Answer</label>
+        </div>
+        {% endif %}
+        <hr>
+        <br>
         {% endfor %}
         <div class="form-group my-1 input-field">
             {{form.marks|add_class:"form-control"|attr:"placeholder:Score"}}
