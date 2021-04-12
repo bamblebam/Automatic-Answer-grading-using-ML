@@ -16,13 +16,20 @@
             <h1>Create Exam</h1>
             <hr>
         </div>
-        {{ formset.management_form }}
-        {% for form in formset %}
-        <div class="form-group my-1 input-field">
-            {{form.body|add_class:"form-control"|attr:"required"}}
-            <label for="" class="small">Question {{forloop.counter}}</label>
+        {{ formset2.management_form }}
+        {% for form, question in formset %}
+        <div class="ques-desc">
+            <div class="question">
+                <h3>Q {{forloop.counter}}</h3>
+                <h3>{{question.title}}</h3>
+            </div>
+            <h5 class="text-right">By {{question.author}}</h5>
         </div>
-        {% render_field form.hidden_question value={{questions.forloop.counter0}} %}
+        <div class="form-group my-1 input-field">
+            {{form.body|add_class:"form-control"}}
+            <label for="" class="small">Answer {{forloop.counter}}</label>
+        </div>
+        {% render_field form.hidden_question value=question.slug %}
         <hr>
         <br>
         {% endfor %}

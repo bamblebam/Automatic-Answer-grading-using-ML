@@ -220,20 +220,20 @@ def addResponseToExam(request, slug):
     if request.method == 'POST':
         formset = ExamResponseFormset(request.POST)
         for form in formset:
-            instance = form.save()
-            instance.user = request.user
-            instance.is_exam = True
-            question_slug = form.cleaned_data['hidden_question']
-            print(question_slug)
-            instance.question = Question.objects.get(slug=question_slug)
-            instance.save()
-            exam_response.add(instance)
-            exam_response.save()
+            if form.is_valid():
+                instance = form.save()
+                instance.user = request.user
+                instance.is_exam = True
+                question_slug = form.cleaned_data['hidden_question']
+                instance.question = Question.objects.get(slug=question_slug)
+                instance.save()
+                exam_response.responses.add(instance)
+                exam_response.save()
         return redirect('exam-home')
     else:
         formset = ExamResponseFormset()
     context = {
-        'questions': questions,
-        'formset': formset
+        'formset': zip(formset, questions),
+        'formset2': formset
     }
     return render(request, 'quiz/add_response.html', context=context)

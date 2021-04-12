@@ -29,7 +29,7 @@ class Response(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, blank=True)
     question = models.ForeignKey(
-        Question, on_delete=models.CASCADE, related_name='responses')
+        Question, on_delete=models.CASCADE, related_name='responses', null=True, blank=True)
     body = models.TextField(null=False)
     marks = models.IntegerField(default=0, validators=[
                                 MinValueValidator(0), MaxValueValidator(100)])
