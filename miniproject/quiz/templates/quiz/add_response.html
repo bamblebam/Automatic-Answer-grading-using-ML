@@ -1,0 +1,68 @@
+{% extends 'layouts/quiz_page.html' %}
+{% load widget_tweaks %}
+{% block title %}New Exam Response{% endblock %}
+{% block content %}
+<div class="login my-auto">
+    <form action="" method="POST" class="login-form">
+        {% csrf_token %}
+        {% if form.errors %}
+        {% for key, value in form.errors.items %}
+        <div class="alert alert-danger text-center">
+            {{value}}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="title text-center">
+            <h1>Create Exam</h1>
+            <hr>
+        </div>
+        {{ formset2.management_form }}
+        {% for form, question in formset %}
+        <div class="ques-desc">
+            <div class="question">
+                <h3>Q {{forloop.counter}}</h3>
+                <h3>{{question.title}}</h3>
+            </div>
+            <h5 class="text-right">By {{question.author}}</h5>
+        </div>
+        <div class="form-group my-1 input-field">
+            {{form.body|add_class:"form-control"}}
+            <label for="" class="small">Answer {{forloop.counter}}</label>
+        </div>
+        {% render_field form.hidden_question value=question.slug %}
+        <hr>
+        <br>
+        {% endfor %}
+        <div class="mt-4">
+            <button type="button" class="btn btn-secondary w-100 p-2" data-toggle="modal" data-target="#exampleModal">
+                Answer Exam
+            </button>
+        </div>
+        <!-- modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Answer Exam</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Once the Exam has been answered it cannot be modified.
+                        <br>
+                        Are you sure you want to proceed?
+                        <br>
+                        This exam can only be given once.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger w-100" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success w-100">Answer Exam</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -24,7 +24,7 @@
                 <td>{{response.user}}</td>
                 <td>{{response.user.roll_no}}</td>
                 <td>{{response.marks}}</td>
-                <td><a href="{% url 'response-update' response.slug %}">Edit</a></td>
+                <td><a href="{% url 'exam-responses-update' response.slug %}">Edit</a></td>
             </tr>
             {% endfor %}
         </tbody>

@@ -1,0 +1,79 @@
+{% extends 'layouts/normal_page.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Exams{% endblock %}
+{% block content %}
+{% if request.user.is_teacher %}
+<div class="container mt-4">
+    <a href="{% url 'new-exam' %}" class="btn btn-primary w-100 p-3">Create Exam</a>
+</div>
+{% endif %}
+<div class="container mt-4">
+    <div class="w-100 text-right">
+        <a href="{% url 'quiz-home' %}">
+            <h3> <i class="fas fa-edit"></i>Questions</h3>
+        </a>
+    </div>
+</div>
+<div class="container">
+    <form action="" class="row my-5">
+        <div class="form-group input-field col-lg-4">
+            {{filter.form.title__icontains|add_class:"form-control"|attr:"placeholder:Exam"}}
+            <label for="">Exam</label>
+        </div>
+        <div class="form-group input-field col-lg-4">
+            {{filter.form.exam_code|add_class:"form-control"|attr:"placeholder:Exam Code"}}
+            <label for="">Exam Code</label>
+        </div>
+        <div class="form-group input-field col-lg-4">
+            {{filter.form.author|add_class:"form-control"|attr:"placeholder:Author"}}
+            <label for="">Author</label>
+        </div>
+        <div class="w-100 d-flex justify-content-center">
+            <button type="submit" class="btn btn-secondary w-50">Filter Exams</button>
+        </div>
+    </form>
+</div>
+<div class="container">
+    {% for exam in object_list %}
+    <div class="card my-4 ques-card">
+        <div class="card-body">
+            <h5 class="card-title"><a href="{% url 'new-exam-response' exam.slug %}">{{exam.title}}</a></h5>
+            <p class="card-text text-right">By {{exam.author}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<br>
+<div class="container">
+    {% if is_paginated %}
+    <div class="row mt-3 mx-auto">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1&{{params}}">First</a></li>
+                <li class="page-item"><a class="page-link"
+                        href="?page={{ page_obj.previous_page_number }}&{{params}}">Previous</a>
+                </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <li class="page-item"><a class="page-link" href="?page={{ num }}&{{params}}">{{ num }}</a></li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}&{{params}}">{{ num }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link"
+                            href="?page={{ page_obj.next_page_number }}&{{params}}">Next</a>
+                    <li class="page-item"><a class="page-link"
+                            href="?page={{ page_obj.paginator.num_pages }}&{{params}}">Last</a>
+                        {% endif %}
+            </ul>
+        </nav>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
