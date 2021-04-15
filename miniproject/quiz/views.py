@@ -13,7 +13,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.urls import reverse
 from django.core.exceptions import PermissionDenied
 from .filters import QuestionFilter, ExamFilter
-from sentence_transformers import SentenceTransformer
+# from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Create your views here.
