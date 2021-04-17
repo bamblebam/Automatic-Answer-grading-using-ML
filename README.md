@@ -9,3 +9,5 @@
 3. Then do python manage.py runserver
 4. You can now see the project runnning at http://127.0.0.1:8000/
 ```
+
+#### 1. Homepage <br>
