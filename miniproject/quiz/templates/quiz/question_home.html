@@ -8,6 +8,13 @@
   <a href="{% url 'new-question' %}" class="btn btn-primary w-100 p-3">Create Question</a>
 </div>
 {% endif %}
+<div class="container mt-4">
+  <div class="w-100 text-right">
+    <a href="{% url 'exam-home' %}">
+      <h3> <i class="fas fa-edit"></i>Exams</h3>
+    </a>
+  </div>
+</div>
 <div class="container">
   <form action="" class="row my-5">
     <div class="form-group input-field col-lg-4">
@@ -37,6 +44,7 @@
   </div>
   {% endfor %}
 </div>
+<br>
 <div class="container">
   {% if is_paginated %}
   <div class="row mt-3 mx-auto">

@@ -8,7 +8,8 @@ html {
 }
 
 header {
-  background-image: url("https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2704&q=80");
+  /* background-image: url("https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2704&q=80"); */
+  background-image: url("https://lh3.googleusercontent.com/RWxnQPbPDhfh_POW0HQiadnzIkL9tI6_HCtD2hU_h0uwvHSKNdk3qm-PFPQSnuzr0RwUxXGd-3Pb4CQFPEguip8KE6KSj7jxBd7X=w1440-v1");
   background-size: cover;
   background-position: center center;
   color: #fff;

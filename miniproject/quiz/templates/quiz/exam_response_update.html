@@ -1,0 +1,58 @@
+{% extends 'layouts/quiz_page.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Update Response{% endblock %}
+{% block content %}
+<div class="login my-auto">
+    <form action="" method="POST" class="login-form">
+        {% csrf_token %}
+        {% if form.errors %}
+        {% for key, value in form.errors.items %}
+        <div class="alert alert-danger text-center">
+            {{value}}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="title text-center">
+            <h1>Edit Response</h1>
+            <hr>
+        </div>
+        {% for response in responses %}
+        {% if response.question %}
+        <div class="ques-desc">
+            <div class="question">
+                <h3>Q {{forloop.counter}}</h3>
+                <h3>{{response.question.title}}</h3>
+            </div>
+            <h5 class="text-right">Response by {{object.user}}</h5>
+        </div>
+        <div class="form-group my-1 input-field">
+            <textarea name="" id="" cols="30" rows="10" disabled class="form-control">{{response.body}}</textarea>
+            <label for="" class="small">Answer</label>
+        </div>
+        {% else %}
+        <div class="ques-desc">
+            <div class="question">
+                <h3>Q {{forloop.counter}}</h3>
+                <h3>{{response.title}}</h3>
+            </div>
+            <h5 class="text-right">Response by {{object.user}}</h5>
+        </div>
+        <div class="form-group my-1 input-field">
+            <textarea name="" id="" cols="30" rows="10" disabled class="form-control">{{response.body}}</textarea>
+            <label for="" class="small">Answer</label>
+        </div>
+        {% endif %}
+        <hr>
+        <br>
+        {% endfor %}
+        <div class="form-group my-1 input-field">
+            {{form.marks|add_class:"form-control"|attr:"placeholder:Score"}}
+            <label for="" class="small">Score</label>
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-secondary w-100">Edit Response</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
