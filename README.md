@@ -15,6 +15,7 @@
 ![image](https://user-images.githubusercontent.com/59617133/115121108-906bdf00-9fce-11eb-8813-4a87ac463d92.png)
 
 #### 2. SignUp 
+![image](https://user-images.githubusercontent.com/59617133/115121202-fb1d1a80-9fce-11eb-9bfb-d978230259e2.png)
 
 
 #### 3. SignIn
