@@ -3,12 +3,14 @@
 
 ## Objective : 
 ### To provide a system which will allow teachers to add subjective questions in online examination which will not require students to use pen and paper and scan the pages occupying extra time which cuts out the time of the examination.
+
 ### To run the project on localhost
 ```
 1. git clone https://github.com/bamblebam/Automatic-Answer-grading-using-ML
-2. cd miniproject
-3. Then do python manage.py runserver
-4. You can now see the project runnning at http://127.0.0.1:8000/
+2. Install all dependencies using command : pip install -r /path/to/requirements.txt
+3. cd miniproject
+4. Then do python manage.py runserver
+5. You can now see the project runnning at http://127.0.0.1:8000/
 ```
 
 #### 1. Homepage <br>
