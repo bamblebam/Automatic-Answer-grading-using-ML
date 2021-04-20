@@ -241,7 +241,7 @@ def already_answered(request):
 class CreateExam(LoginRequiredMixin, IsTeacherMixin, CreateView):
     model = Exam
     template_name = 'quiz/create_exam.html'
-    fields = ['title', 'num_questions']
+    fields = ['title', 'num_questions', 'is_private']
     context_object_name = 'exam'
 
     def form_valid(self, form):
@@ -283,6 +283,12 @@ class CreateExamResponse(LoginRequiredMixin, DetailsFilledMixin, ExamAnsweredMix
     context_object_name = 'exam_response'
 
     def form_valid(self, form):
+        exam = Exam.objects.get(slug=self.kwargs.get('slug'))
+        if exam.is_private:
+            code = exam.exam_code
+            input_code = self.request.POST.get('code')
+            if code != input_code:
+                raise PermissionDenied
         form.instance.save()
         form.instance.user = self.request.user
         form.instance.exam = Exam.objects.get(slug=self.kwargs.get('slug'))
