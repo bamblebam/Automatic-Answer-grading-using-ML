@@ -27,7 +27,7 @@ class QuestionListView(FilterView):
 
     def get_queryset(self):
         questions = super().get_queryset()
-        return questions.filter(is_exam=False)
+        return questions.filter(is_exam=False).order_by('-date_added')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -45,7 +45,7 @@ class ExamListView(FilterView):
 
     def get_queryset(self):
         exams = super().get_queryset()
-        return exams
+        return exams.order_by('-date_added')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -140,7 +140,7 @@ def private_check(request, slug):
         if code == input_code:
             return redirect('private-question-page', slug)
         else:
-            raise PermissionDenied
+            return redirect('wrong-code')
     return render(request, 'quiz/privatequestion.html')
 
 
@@ -234,10 +234,6 @@ def questionPagePrivate(request, slug):
     return render(request, 'quiz/question.html', context)
 
 
-def already_answered(request):
-    return render(request, 'quiz/already_answered.html')
-
-
 class CreateExam(LoginRequiredMixin, IsTeacherMixin, CreateView):
     model = Exam
     template_name = 'quiz/create_exam.html'
@@ -288,7 +284,7 @@ class CreateExamResponse(LoginRequiredMixin, DetailsFilledMixin, ExamAnsweredMix
             code = exam.exam_code
             input_code = self.request.POST.get('code')
             if code != input_code:
-                raise PermissionDenied
+                return redirect('wrong-code')
         form.instance.save()
         form.instance.user = self.request.user
         form.instance.exam = Exam.objects.get(slug=self.kwargs.get('slug'))
@@ -341,3 +337,11 @@ def addResponseToExam(request, slug):
         'formset2': formset
     }
     return render(request, 'quiz/add_response.html', context=context)
+
+
+def already_answered(request):
+    return render(request, 'errors/already_answered.html')
+
+
+def wrong_code(request):
+    return render(request, 'errors/wrong_code.html')
