@@ -15,6 +15,7 @@ class Question(models.Model):
     slug = models.SlugField(max_length=255, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     is_exam = models.BooleanField(default=False)
+    is_private = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -57,6 +58,7 @@ class Exam(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     exam_code = models.CharField(
         max_length=200, default=uuid4().hex[:6], null=True, blank=True)
+    is_private = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
