@@ -21,5 +21,7 @@ urlpatterns = [
     path('add-response/<slug>', views.addResponseToExam, name='add-response'),
     path('errors/already-answered',
          views.already_answered, name='already-answered'),
-    path('private-question/<slug>', views.private_check, name='private-question')
+    path('private-question/<slug>', views.private_check, name='private-question'),
+    path('questionPagePrivate/<slug>', views.questionPagePrivate,
+         name='private-question-page'),
 ]

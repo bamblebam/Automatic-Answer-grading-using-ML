@@ -138,7 +138,7 @@ def private_check(request, slug):
     if request.method == 'POST':
         input_code = request.POST.get('code')
         if code == input_code:
-            return redirect('question', slug)
+            return redirect('private-question-page', slug)
         else:
             raise PermissionDenied
     return render(request, 'quiz/privatequestion.html')
@@ -170,6 +170,40 @@ def newQuestionPage(request):
 @details_filled
 @question_private
 def questionPage(request, slug):
+    response_form = NewResponseForm()
+    if request.method == 'POST':
+        try:
+            response_form = NewResponseForm(request.POST)
+            if response_form.is_valid():
+                sbert_model = SentenceTransformer('bert-base-nli-mean-tokens')
+                response_answer = response_form.cleaned_data['body']
+                model_answer = Question.objects.get(slug=slug).model_answer
+                sentence_embeddings = sbert_model.encode(
+                    [model_answer, response_answer])
+                score = cosine_similarity(sentence_embeddings)[0][1]
+                response = response_form.save(commit=False)
+                response.marks = round(score*100)
+                response.user = request.user
+                response.question = Question.objects.get(slug=slug)
+                response.save()
+                print(score)
+                return redirect('quiz-home')
+        except Exception as e:
+            print(e)
+            raise
+
+    question = Question.objects.get(slug=slug)
+    context = {
+        'question': question,
+        'response_form': response_form,
+    }
+    return render(request, 'quiz/question.html', context)
+
+
+@login_required
+@question_answered
+@details_filled
+def questionPagePrivate(request, slug):
     response_form = NewResponseForm()
     if request.method == 'POST':
         try:
