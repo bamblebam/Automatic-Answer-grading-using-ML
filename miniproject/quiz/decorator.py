@@ -39,6 +39,16 @@ def details_filled(function):
     return wrap
 
 
+def question_private(function):
+    @wraps(function)
+    def wrap(request, slug, *args, **kwargs):
+        question = Question.objects.get(slug=slug)
+        if question.is_private:
+            return redirect('private-question', slug)
+        return function(request, slug, *args, **kwargs)
+    return wrap
+
+
 class IsTeacherMixin():
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.is_teacher:

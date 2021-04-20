@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import modelformset_factory
 from django.contrib.auth.decorators import login_required
 from .models import Question, Response, Exam, ExamResponse
-from .decorator import is_teacher, question_answered, details_filled, IsTeacherMixin, ExamAnsweredMixin, DetailsFilledMixin
+from .decorator import is_teacher, question_answered, details_filled, question_private, IsTeacherMixin, ExamAnsweredMixin, DetailsFilledMixin
 from .forms import NewQuestionForm, NewResponseForm, ResponseUpdateForm, ExamResponseForm, EmptyQueryBaseModelFormSet
 from django_filters.views import FilterView
 from django.views.generic import ListView, UpdateView, CreateView
@@ -132,6 +132,18 @@ class ExamResponseUpdateView(LoginRequiredMixin, IsTeacherMixin, UserPassesTestM
         return reverse('exam-responses', kwargs={'slug': self.get_object().exam.slug})
 
 
+def private_check(request, slug):
+    question = Question.objects.get(slug=slug)
+    code = question.question_code
+    if request.method == 'POST':
+        input_code = request.POST.get('code')
+        if code == input_code:
+            return redirect('question', slug)
+        else:
+            raise PermissionDenied
+    return render(request, 'quiz/privatequestion.html')
+
+
 @login_required
 @is_teacher
 def newQuestionPage(request):
@@ -154,8 +166,9 @@ def newQuestionPage(request):
 
 
 @login_required
-@details_filled
 @question_answered
+@details_filled
+@question_private
 def questionPage(request, slug):
     response_form = NewResponseForm()
     if request.method == 'POST':

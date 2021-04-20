@@ -19,5 +19,7 @@ urlpatterns = [
          views.ExamResponseUpdateView.as_view(), name='exam-responses-update'),
     path('add-questions/<slug>', views.addQuestionsToExam, name='add-questions'),
     path('add-response/<slug>', views.addResponseToExam, name='add-response'),
-    path('errors/already-answered', views.already_answered, name='already-answered')
+    path('errors/already-answered',
+         views.already_answered, name='already-answered'),
+    path('private-question/<slug>', views.private_check, name='private-question')
 ]
