@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import modelformset_factory
 from django.contrib.auth.decorators import login_required
 from .models import Question, Response, Exam, ExamResponse
-from .decorator import is_teacher, question_answered, details_filled, IsTeacherMixin, ExamAnsweredMixin, DetailsFilledMixin
+from .decorator import is_teacher, question_answered, details_filled, question_private, IsTeacherMixin, ExamAnsweredMixin, DetailsFilledMixin
 from .forms import NewQuestionForm, NewResponseForm, ResponseUpdateForm, ExamResponseForm, EmptyQueryBaseModelFormSet
 from django_filters.views import FilterView
 from django.views.generic import ListView, UpdateView, CreateView
@@ -27,7 +27,7 @@ class QuestionListView(FilterView):
 
     def get_queryset(self):
         questions = super().get_queryset()
-        return questions.filter(is_exam=False)
+        return questions.filter(is_exam=False).order_by('-date_added')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -45,7 +45,7 @@ class ExamListView(FilterView):
 
     def get_queryset(self):
         exams = super().get_queryset()
-        return exams
+        return exams.order_by('-date_added')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -132,6 +132,18 @@ class ExamResponseUpdateView(LoginRequiredMixin, IsTeacherMixin, UserPassesTestM
         return reverse('exam-responses', kwargs={'slug': self.get_object().exam.slug})
 
 
+def private_check(request, slug):
+    question = Question.objects.get(slug=slug)
+    code = question.question_code
+    if request.method == 'POST':
+        input_code = request.POST.get('code')
+        if code == input_code:
+            return redirect('private-question-page', slug)
+        else:
+            return redirect('wrong-code')
+    return render(request, 'quiz/privatequestion.html')
+
+
 @login_required
 @is_teacher
 def newQuestionPage(request):
@@ -154,8 +166,9 @@ def newQuestionPage(request):
 
 
 @login_required
-@details_filled
 @question_answered
+@details_filled
+@question_private
 def questionPage(request, slug):
     response_form = NewResponseForm()
     if request.method == 'POST':
@@ -187,14 +200,44 @@ def questionPage(request, slug):
     return render(request, 'quiz/question.html', context)
 
 
-def already_answered(request):
-    return render(request, 'quiz/already_answered.html')
+@login_required
+@question_answered
+@details_filled
+def questionPagePrivate(request, slug):
+    response_form = NewResponseForm()
+    if request.method == 'POST':
+        try:
+            response_form = NewResponseForm(request.POST)
+            if response_form.is_valid():
+                sbert_model = SentenceTransformer('bert-base-nli-mean-tokens')
+                response_answer = response_form.cleaned_data['body']
+                model_answer = Question.objects.get(slug=slug).model_answer
+                sentence_embeddings = sbert_model.encode(
+                    [model_answer, response_answer])
+                score = cosine_similarity(sentence_embeddings)[0][1]
+                response = response_form.save(commit=False)
+                response.marks = round(score*100)
+                response.user = request.user
+                response.question = Question.objects.get(slug=slug)
+                response.save()
+                print(score)
+                return redirect('quiz-home')
+        except Exception as e:
+            print(e)
+            raise
+
+    question = Question.objects.get(slug=slug)
+    context = {
+        'question': question,
+        'response_form': response_form,
+    }
+    return render(request, 'quiz/question.html', context)
 
 
 class CreateExam(LoginRequiredMixin, IsTeacherMixin, CreateView):
     model = Exam
     template_name = 'quiz/create_exam.html'
-    fields = ['title', 'num_questions']
+    fields = ['title', 'num_questions', 'is_private']
     context_object_name = 'exam'
 
     def form_valid(self, form):
@@ -236,6 +279,12 @@ class CreateExamResponse(LoginRequiredMixin, DetailsFilledMixin, ExamAnsweredMix
     context_object_name = 'exam_response'
 
     def form_valid(self, form):
+        exam = Exam.objects.get(slug=self.kwargs.get('slug'))
+        if exam.is_private:
+            code = exam.exam_code
+            input_code = self.request.POST.get('code')
+            if code != input_code:
+                return redirect('wrong-code')
         form.instance.save()
         form.instance.user = self.request.user
         form.instance.exam = Exam.objects.get(slug=self.kwargs.get('slug'))
@@ -288,3 +337,11 @@ def addResponseToExam(request, slug):
         'formset2': formset
     }
     return render(request, 'quiz/add_response.html', context=context)
+
+
+def already_answered(request):
+    return render(request, 'errors/already_answered.html')
+
+
+def wrong_code(request):
+    return render(request, 'errors/wrong_code.html')

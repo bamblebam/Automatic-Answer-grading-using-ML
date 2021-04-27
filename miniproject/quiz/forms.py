@@ -7,7 +7,7 @@ from django.forms import BaseModelFormSet
 class NewQuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ['title', 'model_answer']
+        fields = ['title', 'model_answer', 'is_private']
         widgets = {
             'title': forms.TextInput(attrs={
                 'autofocus': True,
