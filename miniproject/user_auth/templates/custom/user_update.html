@@ -6,7 +6,7 @@
 <div class="login my-auto">
     <div class="alert alert-danger text-center">
         {% for message in messages %}
-        {% ifequal message.tags "detail warning" %}
+        {% ifequal message.tags "details warning" %}
         <h4>{{ message }}</h4>
         {% endifequal %}
         {% endfor %}

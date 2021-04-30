@@ -32,9 +32,9 @@ def details_filled(function):
     def wrap(request, *args, **kwargs):
         user = request.user
         if user.first_name and user.last_name and user.roll_no:
-            messages.warning(request,
-                             "Fill in your details before proceeding.", extra_tags='details')
             return function(request, *args, **kwargs)
+        messages.warning(request,
+                         "Fill in your details before proceeding.", extra_tags='details')
         return redirect('user-update', user.slug)
     return wrap
 
@@ -68,7 +68,7 @@ class DetailsFilledMixin():
     def dispatch(self, request, *args, **kwargs):
         user = request.user
         if user.first_name and user.last_name and user.roll_no:
-            messages.warning(request,
-                             "Fill in your details before proceeding.", extra_tags='details')
             return super().dispatch(request, *args, **kwargs)
+        messages.warning(request,
+                         "Fill in your details before proceeding.", extra_tags='details')
         return redirect('user-update', user.slug)
