@@ -24,6 +24,10 @@
             {{form.num_questions|add_class:"form-control"|attr:"placeholder:Number of Questions"}}
             <label for="" class="small">Number of Questions</label>
         </div>
+        <div class="form-check my-3">
+            {{form.is_private|add_class:"form-check-input"}}
+            <label for="" class="form-check-label">Private</label>
+        </div>
         <div class="mt-4">
             <button type="button" class="btn btn-secondary w-100 p-2" data-toggle="modal" data-target="#exampleModal">
                 Create Exam
